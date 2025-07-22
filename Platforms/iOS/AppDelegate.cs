@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace QuickCart
+namespace TownHall
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

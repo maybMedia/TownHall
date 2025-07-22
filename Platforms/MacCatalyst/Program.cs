@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace QuickCart
+namespace TownHall
 {
     public class Program
     {

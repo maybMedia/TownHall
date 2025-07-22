@@ -1,4 +1,4 @@
-﻿namespace QuickCart
+﻿namespace TownHall
 {
     public partial class AppShell : Shell
     {

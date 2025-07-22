@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace QuickCart
+namespace TownHall
 {
     internal class Program : MauiApplication
     {

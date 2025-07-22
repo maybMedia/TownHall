@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace QuickCart
+namespace TownHall
 {
     [Application]
     public class MainApplication : MauiApplication

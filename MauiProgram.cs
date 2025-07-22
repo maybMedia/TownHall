@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace QuickCart
+namespace TownHall
 {
     public static class MauiProgram
     {
