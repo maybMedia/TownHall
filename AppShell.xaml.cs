@@ -11,5 +11,5 @@
 			Routing.RegisterRoute(nameof(Sell), typeof(Sell));
 			Routing.RegisterRoute(nameof(Account), typeof(Account));
 		}
-    }
+	}
 }

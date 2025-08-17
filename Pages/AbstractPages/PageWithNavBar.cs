@@ -1,4 +1,6 @@
-﻿namespace TownHall
+﻿using System.Xml.Linq;
+
+namespace TownHall
 { 
 	public abstract class PageWithNavBar : ContentPage
 	{
@@ -19,12 +21,19 @@
 				HorizontalOptions = LayoutOptions.Center
 			});
 
-			var pageNames = new[] { "Messages", "Buy", "Sell", "Account" };
+			var pageTypes = new[] { typeof(Messages), typeof(Buy), typeof(Sell), typeof(Account) };
 
-			foreach (var name in pageNames)
+			foreach (var type in pageTypes)
 			{
-				var button = new Button { Text = name };
-				button.Clicked += async (s, e) => await Shell.Current.GoToAsync(name);
+				var button = new Button { Text = type.Name };
+				button.Clicked += async (s, e) =>
+				{
+					// have to treat Buy differently to other pages as its defined as a ShellContent in order to be the start page
+					if (type.Name == nameof(Buy))
+						await Shell.Current.GoToAsync("///Buy");
+					else
+						await Shell.Current.GoToAsync(type.Name);
+				};
 				layout.Children.Add(button);
 			}
 
