@@ -4,40 +4,58 @@ namespace TownHall
 { 
 	public abstract class PageWithNavBar : ContentPage
 	{
-		protected PageWithNavBar(string pageTitle)
+		protected PageWithNavBar()
 		{
-			Title = pageTitle;
-
-			var layout = new VerticalStackLayout
+			var grid = new Grid
 			{
-				Padding = 20,
-				Spacing = 10
+				Padding = new Thickness(10),
+				RowSpacing = 0,
+				ColumnSpacing = 5,
+				VerticalOptions = LayoutOptions.Start,
+				HorizontalOptions = LayoutOptions.Start,
+				RowDefinitions =
+				{
+					new RowDefinition { Height = GridLength.Auto }
+				},
+				ColumnDefinitions =
+				{
+					new ColumnDefinition { Width = GridLength.Auto },
+					new ColumnDefinition { Width = GridLength.Auto },
+					new ColumnDefinition { Width = GridLength.Auto },
+					new ColumnDefinition { Width = GridLength.Auto }
+				}
 			};
-
-			layout.Children.Add(new Label
-			{
-				Text = pageTitle,
-				FontSize = 24,
-				HorizontalOptions = LayoutOptions.Center
-			});
 
 			var pageTypes = new[] { typeof(Messages), typeof(Buy), typeof(Sell), typeof(Account) };
 
+			int col = 0;
 			foreach (var type in pageTypes)
 			{
-				var button = new Button { Text = type.Name };
+				var button = new Button
+				{
+					Text = type.Name[..1], // just using first letter for now
+					WidthRequest = 30,
+					HeightRequest = 30,
+					FontSize = 10
+				};
+
 				button.Clicked += async (s, e) =>
 				{
-					// have to treat Buy differently to other pages as its defined as a ShellContent in order to be the start page
 					if (type.Name == nameof(Buy))
 						await Shell.Current.GoToAsync("///Buy");
 					else
 						await Shell.Current.GoToAsync(type.Name);
 				};
-				layout.Children.Add(button);
+
+				grid.Add(button);
+				Grid.SetRow(button, 0);
+				Grid.SetColumn(button, col);
+
+				col++;
 			}
 
-			Content = layout;
+			Content = grid;
 		}
+
 	}
 }
