@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownHall", "TownHall.csproj", "{AED89AB4-0945-4109-B234-82C34809A304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownHallTests", "..\TownHallTests\TownHallTests.csproj", "{75246DCD-D35F-40D2-9538-1E8B0B664658}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownHall.Test", "..\TownHallTests\TownHall.Test.csproj", "{75246DCD-D35F-40D2-9538-1E8B0B664658}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

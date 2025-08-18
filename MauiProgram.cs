@@ -15,6 +15,11 @@ namespace TownHall
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services
+                .AddDbContext<TownHallContext>();
+                //.AddScoped<>()
+                // ...
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
