@@ -103,4 +103,9 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Data\Models\" />
+	  <Folder Include="Data\Utilities\" />
+	</ItemGroup>
+
 </Project>

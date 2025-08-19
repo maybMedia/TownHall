@@ -16,12 +16,14 @@ namespace TownHall
                 });
 
             builder.Services
-                .AddDbContext<TownHallContext>();
-                //.AddScoped<>()
-                // ...
+                .AddDbContext<TownHallContext>()
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IItemRepository, ItemRepository>()
+                .AddScoped<IItemService, ItemService>();
+			// ...
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
