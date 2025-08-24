@@ -12,6 +12,11 @@
             get { return _context as TownHallContext; }
         }
 
-        // methods
-    }
+		public List<Item> GetByName(string name)
+		{
+			return TownHallContext.Items
+		        .Where(i => i.Name.ToLower().Contains(name.ToLower()))
+		        .ToList();
+		}
+	}
 }
