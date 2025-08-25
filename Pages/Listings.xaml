@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:TownHall"
+             x:Class="TownHall.Listings"
+             Title="Listings">
+
+	<Grid ColumnDefinitions="*,*" Padding="20" ColumnSpacing="20">
+
+		<!-- Left Side -->
+		<VerticalStackLayout Grid.Column="0" Spacing="15">
+			<!-- Big Image -->
+			<Image Source="your_image.png"
+                   Aspect="AspectFill"
+                   HeightRequest="250"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Start" />
+
+			<!-- Input Fields -->
+			<VerticalStackLayout Spacing="10">
+				<VerticalStackLayout>
+					<Label Text="Username"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="UsernameEntry" Placeholder="Enter username" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Password"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="PasswordEntry" Placeholder="Enter password" IsPassword="True" />
+				</VerticalStackLayout>
+			</VerticalStackLayout>
+		</VerticalStackLayout>
+
+		<!-- Right Side -->
+		<Frame Grid.Column="1"
+               BorderColor="LightGray"
+               CornerRadius="12"
+               Padding="20"
+               HasShadow="True">
+			<VerticalStackLayout Spacing="15">
+				<VerticalStackLayout>
+					<Label Text="First Name"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="FirstNameEntry" Placeholder="Enter first name" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Last Name"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="LastNameEntry" Placeholder="Enter last name" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Email"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="EmailEntry" Placeholder="Enter email" Keyboard="Email" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Phone"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="PhoneEntry" Placeholder="Enter phone number" Keyboard="Telephone" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Address"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="AddressEntry" Placeholder="Enter address" />
+				</VerticalStackLayout>
+			</VerticalStackLayout>
+		</Frame>
+	</Grid>
+</local:PageWithNavBar>

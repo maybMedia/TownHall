@@ -18,4 +18,9 @@ public partial class Buy : PageWithNavBar
 
 		var items = _itemService.SearchForItems(query);
 	}
+
+	private async void OnGoToListingsClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(Listings));
+	}
 }

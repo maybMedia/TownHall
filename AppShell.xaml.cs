@@ -10,6 +10,7 @@
 			Routing.RegisterRoute(nameof(Buy), typeof(Buy));
 			Routing.RegisterRoute(nameof(Sell), typeof(Sell));
 			Routing.RegisterRoute(nameof(Account), typeof(Account));
+			Routing.RegisterRoute(nameof(Listings), typeof(Listings));
 		}
 	}
 }
