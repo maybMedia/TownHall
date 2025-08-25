@@ -15,6 +15,9 @@ namespace TownHall
 			_unitOfWork = unitOfWork;
 		}
 
-		// methods
+		public List<Item> SearchForItems(string query)
+		{
+			return _unitOfWork.ItemRepository.GetByName(query);
+		}
 	}
 }

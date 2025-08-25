@@ -8,6 +8,6 @@ namespace TownHall
 {
 	public interface IItemService
 	{
-		// methods
+		public List<Item> SearchForItems(string query);
 	}
 }

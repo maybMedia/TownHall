@@ -4,4 +4,14 @@
 			 xmlns:local="clr-namespace:TownHall"
              x:Class="TownHall.Buy"
              Title="Buy">
+	<VerticalStackLayout Padding="10" Spacing="10">
+		<SearchBar x:Name="Search"
+                   Placeholder="Search for a listing"
+                   SearchButtonPressed="OnSearchBarButtonPressed"/>
+		<!-- Placeholder for results -->
+		<Label x:Name="SearchResultLabel" 
+               Text="Enter a search term above"
+               FontSize="16"
+               HorizontalOptions="Center" />
+	</VerticalStackLayout>
 </local:PageWithNavBar>

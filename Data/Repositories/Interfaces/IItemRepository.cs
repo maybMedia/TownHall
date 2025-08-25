@@ -8,6 +8,6 @@ namespace TownHall
 {
 	public interface IItemRepository
 	{
-		// methods that I need like Add, Delete
+		public List<Item> GetByName(string name);
 	}
 }
