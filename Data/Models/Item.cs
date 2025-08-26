@@ -14,10 +14,10 @@ namespace TownHall
 		public Guid Id { get; set; }
 
 		public string Name { get; set; }
+		public decimal Price { get; set; }
 		public string Summary { get; set; }
 		public string Description { get; set; }
 		public DateTime ListedDate { get; set; }
-		public string Location { get; set; }
 		public bool IsAvailable { get; set; }
 
 		[ForeignKey("User")]

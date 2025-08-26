@@ -19,17 +19,17 @@
 			<!-- Input Fields -->
 			<VerticalStackLayout Spacing="10">
 				<VerticalStackLayout>
-					<Label Text="Username"
-                           FontAttributes="Bold"
-                           FontSize="16"/>
-					<Entry x:Name="UsernameEntry" Placeholder="Enter username" />
+					<Label Text="Price"
+						   FontAttributes="Bold"
+						   FontSize="16"/>	
+					<Entry x:Name="PriceEntry" Placeholder="Price" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
-					<Label Text="Password"
+					<Label Text="Summary"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="PasswordEntry" Placeholder="Enter password" IsPassword="True" />
+					<Entry x:Name="SummaryEntry" Placeholder="Summary"/>
 				</VerticalStackLayout>
 			</VerticalStackLayout>
 		</VerticalStackLayout>
@@ -42,38 +42,38 @@
                HasShadow="True">
 			<VerticalStackLayout Spacing="15">
 				<VerticalStackLayout>
-					<Label Text="First Name"
+					<Label Text="Item Name"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="FirstNameEntry" Placeholder="Enter first name" />
+					<Entry x:Name="NameEntry" Placeholder="Item name" />
+				</VerticalStackLayout>
+				
+				<VerticalStackLayout>
+					<Label Text="Description"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="DescriptionEntry" Placeholder="Description" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
-					<Label Text="Last Name"
+					<Label Text="Date Listed"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="LastNameEntry" Placeholder="Enter last name" />
+					<Entry x:Name="DateListedEntry" Placeholder="Date listed" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
-					<Label Text="Email"
+					<Label Text="Location"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="EmailEntry" Placeholder="Enter email" Keyboard="Email" />
+					<Entry x:Name="LocationEntry" Placeholder="Location"/>
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
-					<Label Text="Phone"
+					<Label Text="Seller"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="PhoneEntry" Placeholder="Enter phone number" Keyboard="Telephone" />
-				</VerticalStackLayout>
-
-				<VerticalStackLayout>
-					<Label Text="Address"
-                           FontAttributes="Bold"
-                           FontSize="16"/>
-					<Entry x:Name="AddressEntry" Placeholder="Enter address" />
+					<Entry x:Name="SellerEntry" Placeholder="Seller"/>
 				</VerticalStackLayout>
 			</VerticalStackLayout>
 		</Frame>
