@@ -13,5 +13,7 @@
                Text="Enter a search term above"
                FontSize="16"
                HorizontalOptions="Center" />
+		<Button Text="Go to Listings"
+            Clicked="OnGoToListingsClicked"/>
 	</VerticalStackLayout>
 </local:PageWithNavBar>

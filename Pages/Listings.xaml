@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:TownHall"
+             x:Class="TownHall.Listings"
+             Title="Listings">
+
+	<Grid ColumnDefinitions="*,*" Padding="20" ColumnSpacing="20">
+
+		<!-- Left Side -->
+		<VerticalStackLayout Grid.Column="0" Spacing="15">
+			<!-- Big Image -->
+			<Image Source="your_image.png"
+                   Aspect="AspectFill"
+                   HeightRequest="250"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Start" />
+
+			<!-- Input Fields -->
+			<VerticalStackLayout Spacing="10">
+				<VerticalStackLayout>
+					<Label Text="Price"
+						   FontAttributes="Bold"
+						   FontSize="16"/>	
+					<Entry x:Name="PriceEntry" Placeholder="Price" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Summary"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="SummaryEntry" Placeholder="Summary"/>
+				</VerticalStackLayout>
+			</VerticalStackLayout>
+		</VerticalStackLayout>
+
+		<!-- Right Side -->
+		<Frame Grid.Column="1"
+               BorderColor="LightGray"
+               CornerRadius="12"
+               Padding="20"
+               HasShadow="True">
+			<VerticalStackLayout Spacing="15">
+				<VerticalStackLayout>
+					<Label Text="Item Name"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="NameEntry" Placeholder="Item name" />
+				</VerticalStackLayout>
+				
+				<VerticalStackLayout>
+					<Label Text="Description"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="DescriptionEntry" Placeholder="Description" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Date Listed"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="DateListedEntry" Placeholder="Date listed" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Location"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="LocationEntry" Placeholder="Location"/>
+				</VerticalStackLayout>
+
+				<VerticalStackLayout>
+					<Label Text="Seller"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+					<Entry x:Name="SellerEntry" Placeholder="Seller"/>
+				</VerticalStackLayout>
+			</VerticalStackLayout>
+		</Frame>
+	</Grid>
+</local:PageWithNavBar>
