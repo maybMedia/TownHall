@@ -14,25 +14,24 @@ namespace TownHall
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
-
 			builder.Services
 				.AddDbContext<TownHallContext>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<IItemRepository, ItemRepository>()
 				.AddScoped<IItemService, ItemService>();
-			// ...
-
-			using (var scope = builder.Build().Services.CreateScope())
-			{
-				var dbContext = scope.ServiceProvider.GetRequiredService<TownHallContext>();
-				dbContext.Database.EnsureCreated();
-			}
 
 #if DEBUG
 			builder.Logging.AddDebug();
 #endif
 
-			return builder.Build();
+			var app = builder.Build();
+
+			// Now use the built app to create the scope
+			using var scope = app.Services.CreateScope();
+			var dbContext = scope.ServiceProvider.GetRequiredService<TownHallContext>();
+			dbContext.Database.EnsureCreated();
+
+			return app;
 		}
 	}
 }
