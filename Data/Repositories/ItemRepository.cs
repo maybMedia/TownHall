@@ -21,7 +21,7 @@
 
 		public List<Item> GetByUser(Guid userId)
 		{
-			return TownHallContext.Items.Where(i => i.Seller.Id == userId).ToList();
+			return TownHallContext.Items.Where(i => i.SellerId == userId).ToList();
 		}
 	}
 }
