@@ -2,14 +2,14 @@
 {
 	public class UserService : IUserService
 	{
-		public User? LoggedInUser;
-
 		private IUnitOfWork _unitOfWork;
 
 		public UserService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}
+
+		public User? LoggedInUser { get; private set; }
 
 		public bool Login(string email, string password)
 		{

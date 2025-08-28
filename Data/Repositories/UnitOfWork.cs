@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TownHall
+﻿namespace TownHall
 {
 	public class UnitOfWork : IUnitOfWork
 	{
@@ -12,10 +6,13 @@ namespace TownHall
 
 		public IItemRepository ItemRepository { get; }
 
+		public IUserRepository UserRepository { get; }
+
 		public UnitOfWork(TownHallContext context)
 		{
 			_context = context;
 			ItemRepository = new ItemRepository(_context);
+			UserRepository = new UserRepository(_context);
 		}
 
 		public void Dispose()

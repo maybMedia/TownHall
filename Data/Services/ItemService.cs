@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TownHall
+﻿namespace TownHall
 {
 	public class ItemService : IItemService
 	{
@@ -18,6 +12,11 @@ namespace TownHall
 		public List<Item> SearchForItems(string query)
 		{
 			return _unitOfWork.ItemRepository.GetByName(query);
+		}
+
+		public List<Item> GetItemsByUser(Guid userId)
+		{
+			return _unitOfWork.ItemRepository.GetByUser(userId);
 		}
 	}
 }
