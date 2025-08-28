@@ -29,13 +29,13 @@ public partial class Account : PageWithNavBar
 		if (currentUser == null) return;
 
 		// Ensure query is executed
-		//var listings = _itemService.GetItemsByUser(currentUser.Id).ToList();
+		var listings = _itemService.GetItemsByUser(currentUser.Id);
 
 		BindingContext = new AccountViewModel
 		{
 			UserName = currentUser.FirstName,
 			Email = currentUser.Email,
-			//Listings = new ObservableCollection<Item>(listings)
+			Listings = new ObservableCollection<Item>(listings)
 		};
 	}
 }
