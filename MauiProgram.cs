@@ -27,6 +27,7 @@ namespace TownHall
 #if DEBUG
 			builder.Logging.AddDebug();
 #endif
+
 			var app = builder.Build();
 
 			// Now use the built app to create the scope
