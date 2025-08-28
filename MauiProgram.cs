@@ -21,7 +21,8 @@ namespace TownHall
 				.AddScoped<IItemRepository, ItemRepository>()
 				.AddScoped<IItemService, ItemService>()
 				.AddScoped<IUserRepository, UserRepository>()
-				.AddScoped<IUserService, UserService>();
+
+				.AddSingleton<IUserService, UserService>();
 			// ...
 
 #if DEBUG

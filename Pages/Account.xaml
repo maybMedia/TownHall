@@ -1,7 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:local="clr-namespace:TownHall"
-             x:Class="TownHall.Account"
-             Title="Account">
+<local:PageWithNavBar
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TownHall"
+    x:Class="TownHall.Account"
+    Title="Account">
+
+    <StackLayout Padding="20">
+        <Label Text="{Binding UserName}" FontSize="24" />
+        <Label Text="{Binding Email}" FontSize="18" />
+
+        <CollectionView ItemsSource="{Binding Listings}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" BackgroundColor="#f0f0f0" Margin="5">
+                        <Label Text="{Binding Name}" FontSize="18" />
+                        <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" />
+                        <Label Text="{Binding Summary}" FontSize="12" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </local:PageWithNavBar>
