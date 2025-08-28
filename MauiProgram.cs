@@ -27,8 +27,14 @@ namespace TownHall
 #if DEBUG
 			builder.Logging.AddDebug();
 #endif
+			var app = builder.Build();
 
-			return builder.Build();
+			// Now use the built app to create the scope
+			using var scope = app.Services.CreateScope();
+			var dbContext = scope.ServiceProvider.GetRequiredService<TownHallContext>();
+			dbContext.Database.EnsureCreated();
+
+			return app;
 		}
 	}
 }

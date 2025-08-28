@@ -24,7 +24,7 @@
 		<ApplicationTitle>TownHall</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.quickcart</ApplicationId>
+		<ApplicationId>com.companyname.townhall</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
