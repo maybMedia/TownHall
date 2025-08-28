@@ -1,24 +1,65 @@
 <local:PageWithNavBar
+    x:Name="RootPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TownHall"
     x:Class="TownHall.Account"
     Title="Account">
 
-    <StackLayout Padding="20">
-        <Label Text="{Binding UserName}" FontSize="24" />
-        <Label Text="{Binding Email}" FontSize="18" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <CollectionView ItemsSource="{Binding Listings}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" BackgroundColor="#f0f0f0" Margin="5">
-                        <Label Text="{Binding Name}" FontSize="18" />
-                        <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" />
-                        <Label Text="{Binding Summary}" FontSize="12" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </StackLayout>
+            <!-- User Info -->
+            <Label HorizontalOptions="Start" HorizontalTextAlignment="Start" FontSize="28" FontAttributes="Bold">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Hi, " />
+                        <Span Text="{Binding UserName}" 
+                              TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}" 
+                              FontAttributes="Bold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="{Binding Email}" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" HorizontalTextAlignment="Start" />
+
+            <!-- Listings Container -->
+            <Frame
+                x:Name="ListingsContainer"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"
+                CornerRadius="12"
+                Padding="15"
+                HasShadow="False">
+
+                <Grid>
+
+                    <!-- Placeholder for empty listings -->
+                    <Label x:Name="EmptyPlaceholder"
+                           Text="No listings yet!"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsVisible="False" />
+
+                    <!-- Listings -->
+                    <CollectionView x:Name="ListingsCollectionView"
+                                    ItemsSource="{Binding Listings}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Style="{StaticResource Frame}" Padding="15" Margin="0,5" HasShadow="True" CornerRadius="10">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
+                                        <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" />
+                                        <Label Text="{Binding Summary}" FontSize="12" LineBreakMode="TailTruncation" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </Grid>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </local:PageWithNavBar>

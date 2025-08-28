@@ -23,6 +23,27 @@ public partial class Account : PageWithNavBar
 		LoadData();
 	}
 
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+
+		// Set minimum height of container to 60% of page height
+		ListingsContainer.MinimumHeightRequest = this.Height * 0.6;
+
+		// Show placeholder if there are no listings
+		var listings = (BindingContext as AccountViewModel)?.Listings;
+		if (listings == null || !listings.Any())
+		{
+			EmptyPlaceholder.IsVisible = true;
+			ListingsCollectionView.IsVisible = false;
+		}
+		else
+		{
+			EmptyPlaceholder.IsVisible = false;
+			ListingsCollectionView.IsVisible = true;
+		}
+	}
+
 	private void LoadData()
 	{
 		var currentUser = _userService.LoggedInUser;
