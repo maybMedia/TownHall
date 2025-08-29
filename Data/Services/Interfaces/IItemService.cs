@@ -8,6 +8,8 @@
 
 		public List<Item> GetItemsByUser(Guid userId);
 
+		public Item GetItemById(Guid id);
+
 		public void AddItem(Item item);
 
 		public void UpdateItem(Item item);

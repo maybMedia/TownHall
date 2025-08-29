@@ -2,6 +2,8 @@
 {
 	public interface IItemRepository
 	{
+		public Item GetById(Guid id);
+
 		public List<Item> GetByName(string name);
 
 		public List<Item> GetByUser(Guid userId);

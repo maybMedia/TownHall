@@ -24,6 +24,11 @@
 			return _unitOfWork.ItemRepository.GetByUser(userId);
 		}
 
+		public Item GetItemById(Guid id)
+		{
+			return _unitOfWork.ItemRepository.GetById(id);
+		}
+
 		public void AddItem(Item newItem)
 		{
 			_unitOfWork.ItemRepository.AddItem(newItem);

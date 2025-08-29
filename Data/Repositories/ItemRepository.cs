@@ -12,6 +12,11 @@
 			get { return _context as TownHallContext; }
 		}
 
+		public Item GetById(Guid id)
+		{
+			return TownHallContext.Items.FirstOrDefault(i => i.Id == id);
+		}
+
 		public List<Item> GetByName(string name)
 		{
 			return TownHallContext.Items
