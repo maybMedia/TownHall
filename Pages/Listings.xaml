@@ -10,7 +10,7 @@
 		<!-- Left Side -->
 		<VerticalStackLayout Grid.Column="0" Spacing="15">
 			<!-- Big Image -->
-			<Image Source="your_image.png"
+			<Image Source="image.png"
                    Aspect="AspectFill"
                    HeightRequest="250"
                    HorizontalOptions="Fill"
@@ -22,14 +22,18 @@
 					<Label Text="Price"
 						   FontAttributes="Bold"
 						   FontSize="16"/>	
-					<Entry x:Name="PriceEntry" Placeholder="Price" />
+					<Entry x:Name="PriceEntry" 
+						   IsReadOnly="{Binding IsEditMode}"
+						   Placeholder="Price" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
 					<Label Text="Summary"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="SummaryEntry" Placeholder="Summary"/>
+					<Entry x:Name="SummaryEntry" 
+						   IsReadOnly="{Binding IsEditMode}"
+						   Placeholder="Summary"/>
 				</VerticalStackLayout>
 			</VerticalStackLayout>
 		</VerticalStackLayout>
@@ -45,35 +49,45 @@
 					<Label Text="Item Name"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="NameEntry" Placeholder="Item name" />
+					<Entry x:Name="NameEntry" 
+						   IsReadOnly="{Binding IsEditMode}"
+						   Placeholder="Item name" />
 				</VerticalStackLayout>
 				
 				<VerticalStackLayout>
 					<Label Text="Description"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="DescriptionEntry" Placeholder="Description" />
+					<Entry x:Name="DescriptionEntry" 
+						   IsReadOnly="{Binding IsEditMode}"
+						   Placeholder="Description" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
 					<Label Text="Date Listed"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="DateListedEntry" Placeholder="Date listed" />
+					<Entry x:Name="DateListedEntry" 
+						   IsReadOnly="True"
+						   Placeholder="Date listed" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
 					<Label Text="Location"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="LocationEntry" Placeholder="Location"/>
+					<Entry x:Name="LocationEntry" 
+						   IsReadOnly="True"
+						   Placeholder="Location"/>
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
 					<Label Text="Seller"
                            FontAttributes="Bold"
                            FontSize="16"/>
-					<Entry x:Name="SellerEntry" Placeholder="Seller"/>
+					<Entry x:Name="SellerEntry"
+						   IsReadOnly="True"
+						   Placeholder="Seller"/>
 				</VerticalStackLayout>
 			</VerticalStackLayout>
 		</Frame>
