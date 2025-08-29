@@ -14,11 +14,16 @@ namespace TownHall
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
+
 			builder.Services
 				.AddDbContext<TownHallContext>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<IItemRepository, ItemRepository>()
-				.AddScoped<IItemService, ItemService>();
+				.AddScoped<IItemService, ItemService>()
+				.AddScoped<IUserRepository, UserRepository>()
+
+				.AddSingleton<IUserService, UserService>();
+			// ...
 
 #if DEBUG
 			builder.Logging.AddDebug();

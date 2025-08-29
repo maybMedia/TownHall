@@ -6,15 +6,15 @@
     xmlns:local="clr-namespace:TownHall"
     Title="TownHall">
 
-	<TabBar>
-		<ShellContent Title="Messages"
+    <TabBar>
+        <ShellContent Title="Messages"
                       ContentTemplate="{DataTemplate local:Messages}" />
-		<ShellContent Title="Buy"
+        <ShellContent Title="Buy"
                       ContentTemplate="{DataTemplate local:Buy}" />
-		<ShellContent Title="Sell"
+        <ShellContent Title="Sell"
                       ContentTemplate="{DataTemplate local:Sell}" />
-		<ShellContent Title="Account"
+        <ShellContent Title="Account"
                       ContentTemplate="{DataTemplate local:Account}" />
-	</TabBar>
+    </TabBar>
 
 </Shell>
