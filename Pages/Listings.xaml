@@ -77,5 +77,17 @@
 				</VerticalStackLayout>
 			</VerticalStackLayout>
 		</Frame>
+
+		<!-- Save Button (only visible in edit mode) -->
+		<Button Text="Save"
+            x:Name="SaveButton"
+            IsVisible="{Binding IsEditMode}"
+            Clicked="OnSaveClicked"
+            BackgroundColor="Green"
+            TextColor="White"
+            CornerRadius="8"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,20,0,0"/>
 	</Grid>
 </local:PageWithNavBar>

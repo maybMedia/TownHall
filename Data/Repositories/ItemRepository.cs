@@ -23,5 +23,17 @@
 		{
 			return TownHallContext.Items.Where(i => i.SellerId == userId).ToList();
 		}
+
+		public void AddItem(Item newItem)
+		{
+			TownHallContext.Add(newItem);
+			SaveChanges();
+		}
+
+		public void UpdateItem(Item item)
+		{
+			TownHallContext.Update(item);
+			SaveChanges();
+		}
 	}
 }

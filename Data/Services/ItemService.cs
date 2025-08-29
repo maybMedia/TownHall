@@ -23,5 +23,15 @@
 		{
 			return _unitOfWork.ItemRepository.GetByUser(userId);
 		}
+
+		public void AddItem(Item newItem)
+		{
+			_unitOfWork.ItemRepository.AddItem(newItem);
+		}
+
+		public void UpdateItem(Item item)
+		{
+			_unitOfWork.ItemRepository.UpdateItem(item);
+		}
 	}
 }
