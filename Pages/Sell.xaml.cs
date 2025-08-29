@@ -18,4 +18,9 @@ public partial class Sell : PageWithNavBar
 
 		var items = _itemService.SearchForItems(query);
 	}
+
+	private void OnCreateNewClicked(object sender, EventArgs e)
+	{
+		Shell.Current.GoToAsync(nameof(Listings));
+	}
 }

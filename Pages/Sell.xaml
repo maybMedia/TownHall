@@ -14,4 +14,8 @@
            FontSize="16"
            HorizontalOptions="Center" />
 	</VerticalStackLayout>
+	<VerticalStackLayout Padding="10" Spacing="10">
+		<Button Text="Create New Listing"
+            Clicked="OnCreateNewClicked"/>
+	</VerticalStackLayout>
 </local:PageWithNavBar>
