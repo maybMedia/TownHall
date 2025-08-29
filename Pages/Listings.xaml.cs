@@ -1,10 +1,12 @@
 namespace TownHall;
 
+[QueryProperty(nameof(ItemId), "itemId")]
 public partial class Listings : PageWithNavBar
 {
 	private IItemService _itemService;
 	private IUserService _userService;
 
+	public string ItemId { get; set; }
 	public bool IsEditMode { get; set; } = false;
 	public bool IsNewItem { get; set; } = true;	
 
@@ -14,6 +16,49 @@ public partial class Listings : PageWithNavBar
 
 		_itemService = itemService;
 		_userService = userService;
+	}
+
+	protected override void OnNavigatedTo(NavigatedToEventArgs args)
+	{
+		base.OnNavigatedTo(args);
+
+		if (string.IsNullOrEmpty(ItemId))
+		{
+			throw new NullReferenceException();
+		}
+
+		if (ItemId == Guid.Empty.ToString())
+		{
+			IsNewItem = true;
+		}
+		else
+		{
+			IsNewItem = false;
+
+			var item = _itemService.GetItemById(Guid.Parse(ItemId));
+			PopulateEntryFields(item);
+
+			if (item.SellerId != _userService.LoggedInUser.Id)
+			{
+				IsEditMode = false;
+				SaveButton.IsVisible = false;
+			}
+			else
+			{
+				IsEditMode = true;
+			}
+		}
+	}
+
+	private void PopulateEntryFields(Item item)
+	{
+		PriceEntry.Placeholder = item.Price.ToString();
+		SummaryEntry.Placeholder = item.Summary;
+		NameEntry.Placeholder = item.Name;
+		DescriptionEntry.Placeholder = item.Description;
+		DateListedEntry.Placeholder = item.ListedDate.ToString();
+		LocationEntry.Placeholder = item.Seller?.Address;
+		SellerEntry.Placeholder = item.Seller?.FullName;
 	}
 
 	private async void OnSaveClicked(object sender, EventArgs e)

@@ -23,6 +23,6 @@ public partial class Sell : PageWithNavBar
 
 	private void OnCreateNewClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync(nameof(Listings));
+		Shell.Current.GoToAsync($"{nameof(Listings)}?itemId={Guid.Empty}"); // empty guid indicates new item
 	}
 }
