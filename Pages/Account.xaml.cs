@@ -46,16 +46,12 @@ public partial class Account : PageWithNavBar
 
 	private void LoadData()
 	{
-		var currentUser = _userService.LoggedInUser;
-		if (currentUser == null) return;
-
-		// Ensure query is executed
-		var listings = _itemService.GetItemsByUser(currentUser.Id);
+		var listings = _itemService.GetAllItems(true);
 
 		BindingContext = new AccountViewModel
 		{
-			UserName = currentUser.FirstName,
-			Email = currentUser.Email,
+			UserName = GlobalCurrentUser.User.FirstName,
+			Email = GlobalCurrentUser.User.Email,
 			Listings = new ObservableCollection<Item>(listings)
 		};
 	}

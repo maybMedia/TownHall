@@ -17,16 +17,9 @@
 			return TownHallContext.Items.FirstOrDefault(i => i.Id == id);
 		}
 
-		public List<Item> GetByName(string name)
+		public List<Item> GetAll()
 		{
-			return TownHallContext.Items
-				.Where(i => i.Name.ToLower().Contains(name.ToLower()))
-				.ToList();
-		}
-
-		public List<Item> GetByUser(Guid userId)
-		{
-			return TownHallContext.Items.Where(i => i.SellerId == userId).ToList();
+			return TownHallContext.Items.ToList();
 		}
 
 		public void AddItem(Item newItem)

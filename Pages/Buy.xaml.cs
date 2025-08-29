@@ -16,7 +16,7 @@ public partial class Buy : PageWithNavBar
 		var query = Search.Text;
 		SearchResultLabel.Text = $"Search query: {query}";
 
-		var items = _itemService.SearchForItems(query);
+		var items = _itemService.SearchForItems(query, false);
 	}
 
 	private async void OnGoToListingsClicked(object sender, EventArgs e)

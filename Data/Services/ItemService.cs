@@ -9,19 +9,19 @@
 			_unitOfWork = unitOfWork;
 		}
 
-		public List<Item> SearchForItems(string query)
+		public List<Item> SearchForItems(string query, bool isCurrentUsersItems)
 		{
-			return _unitOfWork.ItemRepository.GetByName(query);
+			return _unitOfWork.ItemRepository.GetAll()
+				.Where(i => (i.SellerId == GlobalCurrentUser.User.Id) == isCurrentUsersItems)
+				.Where(i => i.Name.Contains(query) || i.Summary.Contains(query) || i.Description.Contains(query))
+				.ToList();
 		}
 
-		public List<Item> SearchForItems(string query, Guid userId)
+		public List<Item> GetAllItems(bool isCurrentUsersItems)
 		{
-			return _unitOfWork.ItemRepository.GetByName(query).Where(i => i.SellerId == userId).ToList();
-		}
-
-		public List<Item> GetItemsByUser(Guid userId)
-		{
-			return _unitOfWork.ItemRepository.GetByUser(userId);
+			return _unitOfWork.ItemRepository.GetAll()
+				.Where(i => (i.SellerId == GlobalCurrentUser.User.Id) == isCurrentUsersItems)
+				.ToList();
 		}
 
 		public Item GetItemById(Guid id)

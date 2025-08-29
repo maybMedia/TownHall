@@ -7,6 +7,8 @@ public partial class Listings : PageWithNavBar
 	private IUserService _userService;
 
 	public string ItemId { get; set; }
+	private Guid itemId => Guid.Parse(ItemId);
+
 	public bool IsEditMode { get; set; } = false;
 	public bool IsNewItem { get; set; } = true;	
 
@@ -27,7 +29,7 @@ public partial class Listings : PageWithNavBar
 			throw new NullReferenceException();
 		}
 
-		if (ItemId == Guid.Empty.ToString())
+		if (itemId == Guid.Empty)
 		{
 			IsNewItem = true;
 		}
@@ -35,18 +37,10 @@ public partial class Listings : PageWithNavBar
 		{
 			IsNewItem = false;
 
-			var item = _itemService.GetItemById(Guid.Parse(ItemId));
+			var item = _itemService.GetItemById(itemId);
 			PopulateEntryFields(item);
 
-			if (item.SellerId != _userService.LoggedInUser.Id)
-			{
-				IsEditMode = false;
-				SaveButton.IsVisible = false;
-			}
-			else
-			{
-				IsEditMode = true;
-			}
+			IsEditMode = (item.SellerId == GlobalCurrentUser.User.Id);
 		}
 	}
 
@@ -121,7 +115,7 @@ public partial class Listings : PageWithNavBar
 			Description = description,
 			ListedDate = IsNewItem ? DateTime.Now : GetListedDate(),
 			IsAvailable = true, // will handle closing listings later
-			Seller = _userService.LoggedInUser
+			Seller = GlobalCurrentUser.User,
 		};
 
 		return true;
@@ -129,8 +123,6 @@ public partial class Listings : PageWithNavBar
 
 	private DateTime GetListedDate()
 	{
-		var listedDate = _itemService.GetItemById(Guid.Empty)?.ListedDate; // need to use actual id
-		
-		return listedDate ?? DateTime.Now;
+		return _itemService.GetItemById(itemId)?.ListedDate ?? DateTime.Now;
 	}
 }
