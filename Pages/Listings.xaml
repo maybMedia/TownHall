@@ -36,6 +36,36 @@
 						   Placeholder="Summary"/>
 				</VerticalStackLayout>
 			</VerticalStackLayout>
+			<HorizontalStackLayout Spacing="15"
+						   HorizontalOptions="Center"
+						   VerticalOptions="Start"
+						   Margin="0,20,0,0">
+
+				<Button Text="Delete"
+				x:Name="DeleteButton"
+				IsVisible="{Binding IsEditMode}"
+				IsEnabled="{Binding !IsNewItem}"
+				Clicked="OnDeleteClicked"
+				BackgroundColor="Red"
+				TextColor="White"
+				CornerRadius="8"
+				HeightRequest="50"
+				WidthRequest="120"
+				HorizontalOptions="Start"
+				VerticalOptions="Center" />
+
+				<Button Text="Save"
+				x:Name="SaveButton"
+				IsVisible="{Binding IsEditMode}"
+				Clicked="OnSaveClicked"
+				BackgroundColor="Green"
+				TextColor="White"
+				CornerRadius="8"
+				HeightRequest="50"
+				WidthRequest="120"
+				HorizontalOptions="End"
+				VerticalOptions="Center" />
+			</HorizontalStackLayout>
 		</VerticalStackLayout>
 
 		<!-- Right Side -->
@@ -92,16 +122,5 @@
 			</VerticalStackLayout>
 		</Frame>
 
-		<!-- Save Button (only visible in edit mode) -->
-		<Button Text="Save"
-            x:Name="SaveButton"
-            IsVisible="{Binding IsEditMode}"
-            Clicked="OnSaveClicked"
-            BackgroundColor="Green"
-            TextColor="White"
-            CornerRadius="8"
-            HorizontalOptions="Center"
-            VerticalOptions="End"
-            Margin="0,20,0,0"/>
 	</Grid>
 </local:PageWithNavBar>

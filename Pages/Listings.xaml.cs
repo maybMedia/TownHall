@@ -123,4 +123,15 @@ public partial class Listings : PageWithNavBar
 	{
 		return _itemService.GetItemById(itemId)?.ListedDate ?? DateTime.Now;
 	}
+
+	private void OnDeleteClicked(object sender, EventArgs e)
+	{
+		var item = _itemService.GetItemById(itemId);
+
+		_itemService.DeleteItem(item);
+
+		DisplayAlert("Deleted Successfully", "Your listing has been deleted.", "OK");
+
+		Navigation.PopAsync();
+	}
 }

@@ -9,5 +9,7 @@
 		public void AddItem(Item newItem);
 
 		public void UpdateItem(Item item);
+
+		public void DeleteItem(Item item);
 	}
 }
