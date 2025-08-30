@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownHall", "TownHall.csproj", "{AED89AB4-0945-4109-B234-82C34809A304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownHall.Test", "..\TownHallTests\TownHall.Test.csproj", "{75246DCD-D35F-40D2-9538-1E8B0B664658}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownHall.Tests", "TownHall.Tests\TownHall.Tests.csproj", "{A4A584FB-8A9D-46CB-ADDD-7659B80E22E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +18,10 @@ Global
 		{AED89AB4-0945-4109-B234-82C34809A304}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{AED89AB4-0945-4109-B234-82C34809A304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AED89AB4-0945-4109-B234-82C34809A304}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75246DCD-D35F-40D2-9538-1E8B0B664658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75246DCD-D35F-40D2-9538-1E8B0B664658}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75246DCD-D35F-40D2-9538-1E8B0B664658}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75246DCD-D35F-40D2-9538-1E8B0B664658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4A584FB-8A9D-46CB-ADDD-7659B80E22E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4A584FB-8A9D-46CB-ADDD-7659B80E22E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4A584FB-8A9D-46CB-ADDD-7659B80E22E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4A584FB-8A9D-46CB-ADDD-7659B80E22E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
