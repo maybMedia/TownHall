@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TownHall.Signup"
+             Title="Sign Up">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+
+            <!-- Header Section -->
+            <Label Text="Create Account" 
+                   Style="{StaticResource Headline}"
+                   Margin="0,20,0,10" />
+
+            <Label Text="Join us today and get started!"
+                   Style="{StaticResource SubHeadline}"
+                   FontSize="16"
+                   Margin="0,0,0,30" />
+
+            <!-- Personal Information Section -->
+            <Label Text="Personal Information"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}"
+                   Margin="0,10,0,5" />
+
+            <!-- First Name -->
+            <Frame>
+                <StackLayout>
+                    <Label Text="First Name" 
+                           FontSize="12" 
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    <Entry x:Name="FirstNameEntry"
+                           Placeholder="Enter your first name"
+                           ReturnType="Next" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Last Name -->
+            <Frame>
+                <StackLayout>
+                    <Label Text="Last Name" 
+                           FontSize="12" 
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    <Entry x:Name="LastNameEntry"
+                           Placeholder="Enter your last name"
+                           ReturnType="Next" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Account Information Section -->
+            <Label Text="Account Information"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}"
+                   Margin="0,20,0,5" />
+
+            <!-- Email -->
+            <Frame>
+                <StackLayout>
+                    <Label Text="Email Address" 
+                           FontSize="12" 
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Enter your email address"
+                           Keyboard="Email"
+                           ReturnType="Next" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Password -->
+            <Frame>
+                <StackLayout>
+                    <Label Text="Password" 
+                           FontSize="12" 
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Create a strong password"
+                           IsPassword="True"
+                           ReturnType="Next" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Contact Information Section -->
+            <Label Text="Contact Information"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}"
+                   Margin="0,20,0,5" />
+
+            <!-- Phone Number -->
+            <Frame>
+                <StackLayout>
+                    <Label Text="Phone Number" 
+                           FontSize="12" 
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    <Entry x:Name="PhoneEntry"
+                           Placeholder="Enter your phone number"
+                           Keyboard="Telephone"
+                           ReturnType="Next" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Address -->
+            <Frame>
+                <StackLayout>
+                    <Label Text="Address" 
+                           FontSize="12" 
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    <Editor x:Name="AddressEditor"
+                            Placeholder="Enter your full address"
+                            HeightRequest="80"
+                            AutoSize="TextChanges" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Sign Up Button -->
+            <Button x:Name="SignUpButton"
+                    Text="Create Account"
+                    Clicked="OnSignUpButtonClicked"
+                    Margin="0,30,0,20"
+                    HeightRequest="50" />
+
+            <!-- Already have account -->
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center"
+                         Margin="0,10,0,20">
+                <Label Text="Already have an account?" 
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                <Label Text="Log In"
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                       FontAttributes="Bold"
+                       Margin="5,0,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogInLabelTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

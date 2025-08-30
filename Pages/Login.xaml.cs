@@ -49,6 +49,6 @@ public partial class Login : ContentPage
 
 	private void OnSignUpClicked(object? sender, EventArgs e)
 	{
-		throw new NotImplementedException();
+		Application.Current.MainPage = new Signup(_userService);
 	}
 }
