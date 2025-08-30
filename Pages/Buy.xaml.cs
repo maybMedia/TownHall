@@ -30,7 +30,8 @@ public partial class Buy : PageWithNavBar
 	{
 		base.OnNavigatedTo(args);
 
-		ItemCollectionView.ItemsSource = _itemService.GetAllItems(false);
+		DisplayedItems = _itemService.GetAllItems(false);
+		ItemCollectionView.ItemsSource = DisplayedItems;
 	}
 
 	private void OnSearchBarButtonPressed(object sender, EventArgs e)
