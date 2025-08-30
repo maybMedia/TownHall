@@ -9,14 +9,12 @@
 			_unitOfWork = unitOfWork;
 		}
 
-		public User? LoggedInUser { get; private set; }
-
 		public bool Login(string email, string password)
 		{
 			var user = _unitOfWork.UserRepository.ValidateCredentials(email, password);
 			if (user != null)
 			{
-				LoggedInUser = user;
+				GlobalCurrentUser.User = user;
 				return true;
 			}
 			return false;

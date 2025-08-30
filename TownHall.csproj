@@ -115,8 +115,4 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Data\Utilities\" />
-	</ItemGroup>
-
 </Project>

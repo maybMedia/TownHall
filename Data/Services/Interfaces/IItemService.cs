@@ -2,11 +2,9 @@
 {
 	public interface IItemService
 	{
-		public List<Item> SearchForItems(string query);
+		public List<Item> SearchForItems(string query, bool isCurrentUsersItems);
 
-		public List<Item> SearchForItems(string query, Guid userId);
-
-		public List<Item> GetItemsByUser(Guid userId);
+		public List<Item> GetAllItems(bool isCurrentUsersItems);
 
 		public Item GetItemById(Guid id);
 

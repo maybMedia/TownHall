@@ -18,11 +18,11 @@ public partial class Sell : PageWithNavBar
 		var query = Search.Text;
 		SearchResultLabel.Text = $"Search query: {query}";
 
-		var items = _itemService.SearchForItems(query, _userService.LoggedInUser.Id);
+		var items = _itemService.SearchForItems(query, true);
 	}
 
 	private void OnCreateNewClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync(nameof(Listings));
+		Shell.Current.GoToAsync($"{nameof(Listings)}?itemId={Guid.Empty}"); // empty guid indicates new item
 	}
 }
