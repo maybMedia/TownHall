@@ -7,5 +7,7 @@
 		public List<User> GetUsers();
 
 		public User? GetUserById(Guid id);
+
+		public User CreateUser(string email, string password, string firstName, string lastName, string phone, string address);
 	}
 }

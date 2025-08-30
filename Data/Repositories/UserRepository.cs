@@ -29,5 +29,11 @@
 		{
 			return _context.Users.ToList();
 		}
+
+		public User Add(User user)
+		{
+			_context.Users.Add(user);
+			return user;
+		}
 	}
 }
