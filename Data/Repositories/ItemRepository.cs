@@ -33,5 +33,11 @@
 			TownHallContext.Update(item);
 			SaveChanges();
 		}
+
+		public void DeleteItem(Item item)
+		{
+			TownHallContext.Remove(item);
+			SaveChanges();
+		}
 	}
 }

@@ -11,5 +11,7 @@
 		public void AddItem(Item item);
 
 		public void UpdateItem(Item item);
+
+		public void DeleteItem(Item item);
 	}
 }

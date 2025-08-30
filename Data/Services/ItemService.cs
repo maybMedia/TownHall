@@ -38,5 +38,10 @@
 		{
 			_unitOfWork.ItemRepository.UpdateItem(item);
 		}
+
+		public void DeleteItem(Item item)
+		{
+			_unitOfWork.ItemRepository.DeleteItem(item);
+		}
 	}
 }

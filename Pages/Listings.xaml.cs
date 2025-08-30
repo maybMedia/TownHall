@@ -1,16 +1,59 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace TownHall;
 
 [QueryProperty(nameof(ItemId), "itemId")]
-public partial class Listings : PageWithNavBar
+public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 {
+	// need this to make the UI reactive
+	public new event PropertyChangedEventHandler PropertyChanged;
+	protected new void OnPropertyChanged([CallerMemberName] string propertyName = null)
+	{
+		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	}
+
 	private IItemService _itemService;
 	private IUserService _userService;
 
 	public string ItemId { get; set; }
 	private Guid itemId => Guid.Parse(ItemId);
 
-	public bool IsEditMode { get; set; } = false;
-	public bool IsNewItem { get; set; } = true;	
+	private bool _isEditMode = true;
+	public bool IsEditMode
+	{
+		get => _isEditMode;
+		set
+		{
+			if (_isEditMode != value)
+			{
+				_isEditMode = value;
+				OnPropertyChanged(nameof(IsEditMode));
+				OnPropertyChanged(nameof(IsFieldsReadOnly));
+			}
+		}
+	}
+	public bool IsFieldsReadOnly
+	{
+		get => !IsEditMode;
+	}
+	private bool _isNewItem = true;
+	public bool IsNewItem { 
+		get => _isNewItem; 
+		set 
+		{
+			if (_isNewItem != value)
+			{
+				_isNewItem = value;
+				OnPropertyChanged(nameof(IsNewItem));
+				OnPropertyChanged(nameof(EnableDelete));
+			}
+		}
+	}
+	public bool EnableDelete
+	{
+		get => !IsNewItem;
+	}
 
 	public Listings(IItemService itemService, IUserService userService)
 	{
@@ -18,6 +61,8 @@ public partial class Listings : PageWithNavBar
 
 		_itemService = itemService;
 		_userService = userService;
+
+		BindingContext = this;
 	}
 
 	protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -122,5 +167,16 @@ public partial class Listings : PageWithNavBar
 	private DateTime GetListedDate()
 	{
 		return _itemService.GetItemById(itemId)?.ListedDate ?? DateTime.Now;
+	}
+
+	private void OnDeleteClicked(object sender, EventArgs e)
+	{
+		var item = _itemService.GetItemById(itemId);
+
+		_itemService.DeleteItem(item);
+
+		DisplayAlert("Deleted Successfully", "Your listing has been deleted.", "OK");
+
+		Navigation.PopAsync();
 	}
 }
