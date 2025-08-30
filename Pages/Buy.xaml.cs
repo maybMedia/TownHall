@@ -1,22 +1,41 @@
+using System.Reflection;
+using System.Windows.Input;
+
 namespace TownHall;
 
 public partial class Buy : PageWithNavBar
 {
 	private IItemService _itemService;
 
+	public ICommand CardTappedCommand { get; }
+
+	public List<Item> DisplayedItems { get; set; }
+
 	public Buy(IItemService itemService)
 	{
 		InitializeComponent();
 
 		_itemService = itemService;
+
+		CardTappedCommand = new Command<Item>(async listing =>
+		{
+			if (listing != null)
+			{
+				await Shell.Current.GoToAsync($"listingdetails?listingId={listing.Id}");
+			}
+		});
+	}
+
+	protected override void OnNavigatedTo(NavigatedToEventArgs args)
+	{
+		base.OnNavigatedTo(args);
+
+		ItemCollectionView.ItemsSource = _itemService.GetAllItems(false);
 	}
 
 	private void OnSearchBarButtonPressed(object sender, EventArgs e)
 	{
-		var query = Search.Text;
-		SearchResultLabel.Text = $"Search query: {query}";
-
-		var items = _itemService.SearchForItems(query, false);
+		var items = _itemService.SearchForItems(Search.Text, false);
 	}
 
 	private async void OnGoToListingsClicked(object sender, EventArgs e)
