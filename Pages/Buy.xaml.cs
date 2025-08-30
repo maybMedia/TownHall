@@ -21,7 +21,7 @@ public partial class Buy : PageWithNavBar
 
 	private async void OnGoToListingsClicked(object sender, EventArgs e)
 	{
-		var item = _itemService.GetItemById(new Guid("CB43028B-F1E9-4B64-B590-DF655D06A641")); // hardcoded for now
+		var item = _itemService.GetItemById(new Guid("08275136-F858-4737-B531-1304E9B360F8")); // hardcoded for now
 		await Shell.Current.GoToAsync($"{nameof(Listings)}?itemId={item.Id}"); 
 	}
 }

@@ -23,7 +23,7 @@
 						   FontAttributes="Bold"
 						   FontSize="16"/>	
 					<Entry x:Name="PriceEntry" 
-						   IsReadOnly="{Binding IsEditMode}"
+						   IsReadOnly="{Binding IsFieldsReadOnly}"
 						   Placeholder="Price" />
 				</VerticalStackLayout>
 
@@ -32,7 +32,7 @@
                            FontAttributes="Bold"
                            FontSize="16"/>
 					<Entry x:Name="SummaryEntry" 
-						   IsReadOnly="{Binding IsEditMode}"
+						   IsReadOnly="{Binding IsFieldsReadOnly}"
 						   Placeholder="Summary"/>
 				</VerticalStackLayout>
 			</VerticalStackLayout>
@@ -44,7 +44,7 @@
 				<Button Text="Delete"
 				x:Name="DeleteButton"
 				IsVisible="{Binding IsEditMode}"
-				IsEnabled="{Binding !IsNewItem}"
+				IsEnabled="{Binding EnableDelete}"
 				Clicked="OnDeleteClicked"
 				BackgroundColor="Red"
 				TextColor="White"
@@ -80,7 +80,7 @@
                            FontAttributes="Bold"
                            FontSize="16"/>
 					<Entry x:Name="NameEntry" 
-						   IsReadOnly="{Binding IsEditMode}"
+						   IsReadOnly="{Binding IsFieldsReadOnly}"
 						   Placeholder="Item name" />
 				</VerticalStackLayout>
 				
@@ -89,7 +89,7 @@
                            FontAttributes="Bold"
                            FontSize="16"/>
 					<Entry x:Name="DescriptionEntry" 
-						   IsReadOnly="{Binding IsEditMode}"
+						   IsReadOnly="{Binding IsFieldsReadOnly}"
 						   Placeholder="Description" />
 				</VerticalStackLayout>
 
