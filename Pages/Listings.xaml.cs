@@ -46,13 +46,13 @@ public partial class Listings : PageWithNavBar
 
 	private void PopulateEntryFields(Item item)
 	{
-		PriceEntry.Placeholder = item.Price.ToString();
-		SummaryEntry.Placeholder = item.Summary;
-		NameEntry.Placeholder = item.Name;
-		DescriptionEntry.Placeholder = item.Description;
-		DateListedEntry.Placeholder = item.ListedDate.ToString();
-		LocationEntry.Placeholder = item.Seller?.Address;
-		SellerEntry.Placeholder = item.Seller?.FullName;
+		PriceEntry.Text = item.Price.ToString();
+		SummaryEntry.Text = item.Summary;
+		NameEntry.Text = item.Name;
+		DescriptionEntry.Text = item.Description;
+		DateListedEntry.Text = item.ListedDate.ToString();
+		LocationEntry.Text = item.Seller?.Address;
+		SellerEntry.Text = item.Seller?.FullName;
 	}
 
 	private async void OnSaveClicked(object sender, EventArgs e)
@@ -87,7 +87,7 @@ public partial class Listings : PageWithNavBar
 
 	private bool MapFieldsToItemObject(out Item item)
 	{
-		item = null;
+		item = _itemService.GetItemById(itemId) ?? new Item();
 
 		// collect values from interface
 		var priceText = PriceEntry.Text?.Trim();
@@ -107,16 +107,14 @@ public partial class Listings : PageWithNavBar
 		if (!decimal.TryParse(priceText, out decimal price)) return false;
 
 		// now can map
-		item = new Item
-		{
-			Name = name,
-			Price = price,
-			Summary = summary,
-			Description = description,
-			ListedDate = IsNewItem ? DateTime.Now : GetListedDate(),
-			IsAvailable = true, // will handle closing listings later
-			Seller = GlobalCurrentUser.User,
-		};
+		item.Id = IsNewItem ? Guid.NewGuid() : itemId;
+		item.Name = name;
+		item.Price = price;
+		item.Summary = summary;
+		item.Description = description;
+		item.ListedDate = IsNewItem ? DateTime.Now : GetListedDate();
+		item.IsAvailable = true; // will handle closing listings later
+		item.SellerId = GlobalCurrentUser.User.Id;
 
 		return true;
 	}
