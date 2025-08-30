@@ -60,6 +60,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="TownHall.Tests\**" />
+	  <Compile Remove="TownHall.Tests\**" />
+	  <EmbeddedResource Remove="TownHall.Tests\**" />
+	  <MauiCss Remove="TownHall.Tests\**" />
+	  <MauiXaml Remove="TownHall.Tests\**" />
+	  <None Remove="TownHall.Tests\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
