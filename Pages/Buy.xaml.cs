@@ -9,7 +9,7 @@ public partial class Buy : PageWithNavBar
 
 	public ICommand CardTappedCommand { get; }
 
-	public List<Item> DisplayedItems { get; set; }
+	public List<Item> DisplayedItems { get; set; } = new List<Item>();
 
 	public Buy(IItemService itemService)
 	{
@@ -17,11 +17,11 @@ public partial class Buy : PageWithNavBar
 
 		_itemService = itemService;
 
-		CardTappedCommand = new Command<Item>(async listing =>
+		CardTappedCommand = new Command<Item>(async item =>
 		{
-			if (listing != null)
+			if (item != null)
 			{
-				await Shell.Current.GoToAsync($"listingdetails?listingId={listing.Id}");
+				await Shell.Current.GoToAsync($"{nameof(Listings)}?itemId={item.Id}");
 			}
 		});
 	}
@@ -37,11 +37,5 @@ public partial class Buy : PageWithNavBar
 	private void OnSearchBarButtonPressed(object sender, EventArgs e)
 	{
 		var items = _itemService.SearchForItems(Search.Text, false);
-	}
-
-	private async void OnGoToListingsClicked(object sender, EventArgs e)
-	{
-		var item = _itemService.GetItemById(new Guid("08275136-F858-4737-B531-1304E9B360F8")); // hardcoded for now
-		await Shell.Current.GoToAsync($"{nameof(Listings)}?itemId={item.Id}"); 
 	}
 }

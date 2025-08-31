@@ -9,26 +9,39 @@
                    Placeholder="Search for a listing"
                    SearchButtonPressed="OnSearchBarButtonPressed"/>
 
-		<CollectionView x:Name="ItemCollectionView" Margin="10" ItemsSource="{Binding DisplayedItems}">
+		<CollectionView x:Name="ItemCollectionView"
+                    Margin="10"
+                    ItemsSource="{Binding DisplayedItems}">
+
 			<CollectionView.ItemsLayout>
 				<GridItemsLayout Orientation="Vertical"
                              Span="4"
-                             HorizontalItemSpacing="10"
-                             VerticalItemSpacing="10"/>
+                             HorizontalItemSpacing="8"
+                             VerticalItemSpacing="8"/>
 			</CollectionView.ItemsLayout>
-			
+
 			<CollectionView.ItemTemplate>
 				<DataTemplate>
-					<Frame CornerRadius="10" Padding="10" Margin="5" BackgroundColor="White" HasShadow="True">
+					<Frame Padding="5"
+                       CornerRadius="8"
+                       BackgroundColor="White"
+                       HasShadow="True">
 						<Frame.GestureRecognizers>
-							<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:Listings}}, Path=CardTappedCommand}"
-                                          CommandParameter="{Binding .}" />
+							<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:Buy}}, Path=CardTappedCommand}"
+                                              CommandParameter="{Binding .}" />
 						</Frame.GestureRecognizers>
-						<StackLayout>
-							<Image Source="{Binding ImageUrl}" HeightRequest="150" Aspect="AspectFill"/>
-							<Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" Margin="0,5,0,0"/>
-							<Label Text="{Binding Price, StringFormat='{0:C}'}" FontSize="Small" TextColor="Gray"/>
-						</StackLayout>
+						<VerticalStackLayout>
+							<Image Source="{Binding ImageUrl}" 
+                               Aspect="AspectFill" 
+                               HeightRequest="70"/>
+							<Label Text="{Binding Name}" 
+                               FontSize="12" 
+                               FontAttributes="Bold"
+                               LineBreakMode="TailTruncation"/>
+							<Label Text="{Binding Price, StringFormat='{0:C}'}" 
+                               FontSize="10" 
+                               TextColor="Gray"/>
+						</VerticalStackLayout>
 					</Frame>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
