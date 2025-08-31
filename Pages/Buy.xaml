@@ -30,7 +30,7 @@
                                               CommandParameter="{Binding .}" />
 						</Frame.GestureRecognizers>
 						<VerticalStackLayout>
-							<Image Source="{Binding ImageUrl}" 
+							<Image Source="{Binding ImageSource}" 
                                Aspect="AspectFill" 
                                HeightRequest="70"/>
 							<Label Text="{Binding Name}" 

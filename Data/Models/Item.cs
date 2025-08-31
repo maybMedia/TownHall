@@ -27,5 +27,9 @@ namespace TownHall
 
 		[NotMapped]
 		public List<Message> Messages { get; set; } = new List<Message>();
+
+		public byte[]? ImageData { get; set; }
+		[NotMapped]
+		public ImageSource ImageSource => ImageSource.FromStream(() => new MemoryStream(ImageData));
 	}
 }

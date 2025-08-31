@@ -9,11 +9,14 @@
 		<!-- Left Side -->
 		<VerticalStackLayout Grid.Column="0" Spacing="15">
 			<!-- Big Image -->
-			<Image Source="image.png"
+			<Image x:Name="Image"
                    Aspect="AspectFill"
                    HeightRequest="250"
                    HorizontalOptions="Fill"
                    VerticalOptions="Start" />
+			<Button Text="Select Image" 
+					Clicked="OnSelectImageClicked"
+					IsVisible="{Binding IsEditMode}"/>
 
 			<!-- Input Fields -->
 			<VerticalStackLayout Spacing="10">
