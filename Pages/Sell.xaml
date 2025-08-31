@@ -46,6 +46,12 @@
 			</CollectionView.ItemTemplate>
 		</CollectionView>
 
+		<Label Text="You have not listed any items yet"
+			   IsVisible="{Binding HasNoListings}"
+			   FontSize="14"
+			   HorizontalOptions="Center"
+			   VerticalOptions="Center"/>
+
 		<Button Text="Create New Listing"
                 Clicked="OnCreateNewClicked" />
 	</VerticalStackLayout>

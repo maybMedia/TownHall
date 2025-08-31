@@ -11,6 +11,8 @@ public partial class Sell : PageWithNavBar
 
 	public List<Item> DisplayedItems { get; set; } = new List<Item>();
 
+	public bool HasNoListings => DisplayedItems.Count == 0;
+
 	public Sell(IItemService itemService, IUserService userService)
 	{
 		InitializeComponent();
