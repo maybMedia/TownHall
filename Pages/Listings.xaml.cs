@@ -14,7 +14,6 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 	}
 
 	private IItemService _itemService;
-	private IUserService _userService;
 
 	public string ItemId { get; set; }
 	private Guid itemId => Guid.Parse(ItemId);
@@ -57,12 +56,11 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		get => !IsNewItem;
 	}
 
-	public Listings(IItemService itemService, IUserService userService)
+	public Listings(IItemService itemService)
 	{
 		InitializeComponent();
 
 		_itemService = itemService;
-		_userService = userService;
 
 		BindingContext = this;
 	}

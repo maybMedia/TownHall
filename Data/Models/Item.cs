@@ -15,7 +15,6 @@ namespace TownHall
 
 		public string Name { get; set; }
 		public decimal Price { get; set; }
-		public byte[]? ImageData { get; set; }
 		public string Summary { get; set; }
 		public string Description { get; set; }
 		public DateTime ListedDate { get; set; }
@@ -28,5 +27,9 @@ namespace TownHall
 
 		[NotMapped]
 		public List<Message> Messages { get; set; } = new List<Message>();
+
+		public byte[]? ImageData { get; set; }
+		[NotMapped]
+		public ImageSource ImageSource => ImageSource.FromStream(() => new MemoryStream(ImageData));
 	}
 }
