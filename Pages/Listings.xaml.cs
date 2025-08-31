@@ -14,6 +14,7 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 	}
 
 	private IItemService _itemService;
+	private IUserService _userService;
 
 	public string ItemId { get; set; }
 	private Guid itemId => Guid.Parse(ItemId);
@@ -56,11 +57,12 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		get => !IsNewItem;
 	}
 
-	public Listings(IItemService itemService)
+	public Listings(IItemService itemService, IUserService userService)
 	{
 		InitializeComponent();
 
 		_itemService = itemService;
+		_userService = userService;
 
 		BindingContext = this;
 	}
@@ -97,8 +99,10 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		NameEntry.Text = item.Name;
 		DescriptionEntry.Text = item.Description;
 		DateListedEntry.Text = item.ListedDate.ToString();
-		LocationEntry.Text = item.Seller?.Address;
-		SellerEntry.Text = item.Seller?.FullName;
+
+		var seller = _userService.GetUserById(item.SellerId);
+		LocationEntry.Text = seller.Address;
+		SellerEntry.Text = seller.FullName;
 	}
 
 	private async void OnSaveClicked(object sender, EventArgs e)

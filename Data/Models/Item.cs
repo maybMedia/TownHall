@@ -22,8 +22,6 @@ namespace TownHall
 
 		[ForeignKey("User")]
 		public Guid SellerId { get; set; }
-		[NotMapped]
-		public User Seller { get; set; }
 
 		[NotMapped]
 		public List<Message> Messages { get; set; } = new List<Message>();
