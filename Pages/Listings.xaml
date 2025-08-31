@@ -2,8 +2,7 @@
 <local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:local="clr-namespace:TownHall"
-             x:Class="TownHall.Listings"
-             Title="Listings">
+             x:Class="TownHall.Listings">
 
 	<Grid ColumnDefinitions="*,*" Padding="20" ColumnSpacing="20">
 
