@@ -19,6 +19,8 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 	public string ItemId { get; set; }
 	private Guid itemId => Guid.Parse(ItemId);
 
+	private byte[] _imageData;
+
 	private bool _isEditMode = true;
 	public bool IsEditMode
 	{
@@ -91,6 +93,7 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 
 	private void PopulateEntryFields(Item item)
 	{
+		Image.Source = ImageSource.FromStream(() => new MemoryStream(item.ImageData));
 		PriceEntry.Text = item.Price.ToString();
 		SummaryEntry.Text = item.Summary;
 		NameEntry.Text = item.Name;
@@ -155,6 +158,7 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		item.Id = IsNewItem ? Guid.NewGuid() : itemId;
 		item.Name = name;
 		item.Price = price;
+		item.ImageData = _imageData;
 		item.Summary = summary;
 		item.Description = description;
 		item.ListedDate = IsNewItem ? DateTime.Now : GetListedDate();
@@ -178,5 +182,24 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		DisplayAlert("Deleted Successfully", "Your listing has been deleted.", "OK");
 
 		Navigation.PopAsync();
+	}
+
+	private async void OnSelectImageClicked(object sender, EventArgs e)
+	{
+		var result = await FilePicker.PickAsync(new PickOptions
+		{
+			PickerTitle = "Pick an image",
+			FileTypes = FilePickerFileType.Images
+		});
+
+		if (result != null)
+		{
+			using var stream = await result.OpenReadAsync();
+			using var ms = new MemoryStream();
+			await stream.CopyToAsync(ms);
+			_imageData = ms.ToArray();
+
+			Image.Source = ImageSource.FromStream(() => new MemoryStream(_imageData));
+		}
 	}
 }

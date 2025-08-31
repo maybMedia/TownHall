@@ -15,6 +15,7 @@ namespace TownHall
 
 		public string Name { get; set; }
 		public decimal Price { get; set; }
+		public byte[]? ImageData { get; set; }
 		public string Summary { get; set; }
 		public string Description { get; set; }
 		public DateTime ListedDate { get; set; }
