@@ -45,5 +45,11 @@
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
 		</CollectionView>
+
+		<Label Text="No listings"
+		   IsVisible="{Binding NoItemsToDisplay}"
+		   FontSize="14"
+		   HorizontalOptions="Center"
+		   VerticalOptions="Center"/>
 	</VerticalStackLayout>
 </local:PageWithNavBar>

@@ -46,8 +46,8 @@
 			</CollectionView.ItemTemplate>
 		</CollectionView>
 
-		<Label Text="You have not listed any items yet"
-			   IsVisible="{Binding HasNoListings}"
+		<Label Text="No listings"
+			   IsVisible="{Binding NoItemsToDisplay}"
 			   FontSize="14"
 			   HorizontalOptions="Center"
 			   VerticalOptions="Center"/>
