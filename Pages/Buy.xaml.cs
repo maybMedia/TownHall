@@ -17,7 +17,8 @@ public partial class Buy : PageWithNavBar, INotifyPropertyChanged
 
 	private IItemService _itemService;
 
-	public ICommand CardTappedCommand { get; }
+	public ICommand ViewCommand { get; }
+	public ICommand MessageCommand { get; }
 
 	public string SearchQuery => Search.Text ?? string.Empty;
 
@@ -48,11 +49,18 @@ public partial class Buy : PageWithNavBar, INotifyPropertyChanged
 			OnPropertyChanged(nameof(NoItemsToDisplay));
 		};
 
-		CardTappedCommand = new Command<Item>(async item =>
+		ViewCommand = new Command<Item>(async item =>
 		{
 			if (item != null)
 			{
 				await Shell.Current.GoToAsync($"{nameof(Listings)}?itemId={item.Id}");
+			}
+		});
+		MessageCommand = new Command<Item>(async item =>
+		{
+			if (item != null)
+			{
+				await Shell.Current.GoToAsync($"{nameof(Messages)}?messageId={item.Id}");
 			}
 		});
 

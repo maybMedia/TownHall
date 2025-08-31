@@ -129,6 +129,8 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 				await DisplayAlert("Error", "There was an error saving your changes. Please try again.", "OK");
 			}
 		}
+
+		Navigation.PopAsync();
 	}
 
 	private bool MapFieldsToItemObject(out Item item)
