@@ -83,6 +83,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\TownHall.Core\TownHall.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Pages\Messages.xaml.cs">
 	    <DependentUpon>Messages.xaml</DependentUpon>
 	  </Compile>
