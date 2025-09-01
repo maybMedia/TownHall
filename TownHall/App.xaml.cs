@@ -1,4 +1,6 @@
-﻿namespace TownHall
+﻿using TownHall.Core;
+
+namespace TownHall
 {
 	public partial class App : Application
 	{

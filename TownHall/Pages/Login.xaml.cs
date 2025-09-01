@@ -1,3 +1,5 @@
+using TownHall.Core;
+
 namespace TownHall;
 
 public partial class Login : ContentPage
