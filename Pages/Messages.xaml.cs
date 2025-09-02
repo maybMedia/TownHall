@@ -6,4 +6,9 @@ public partial class Messages : PageWithNavBar
 	{
 		InitializeComponent();
 	}
+
+	private void OnConversationSelected(object? sender, SelectionChangedEventArgs e)
+	{
+		throw new NotImplementedException();
+	}
 }
