@@ -3,22 +3,45 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TownHall"
     x:Class="TownHall.Account">
-
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Header with User Info and Logout Button -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- User Info -->
-            <Label HorizontalOptions="Start" HorizontalTextAlignment="Start" FontSize="28" FontAttributes="Bold">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Hi, " />
-                        <Span Text="{Binding UserName}" 
-                              TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}" 
-                              FontAttributes="Bold"/>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-            <Label Text="{Binding Email}" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" HorizontalTextAlignment="Start" />
+                <!-- User Info -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5">
+                    <Label HorizontalOptions="Start" HorizontalTextAlignment="Start" FontSize="28" FontAttributes="Bold">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Hi, " />
+                                <Span Text="{Binding UserName}" 
+                                      TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}" 
+                                      FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding Email}" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" HorizontalTextAlignment="Start" />
+                </VerticalStackLayout>
+
+                <!-- Logout Button -->
+                <Button Grid.Row="0" Grid.Column="1"
+                        Text="Logout"
+                        TextColor="White"
+                        FontSize="14"
+                        CornerRadius="8"
+                        Padding="15,8"
+                        VerticalOptions="Start"
+                        HorizontalOptions="End"
+                        Clicked="OnLogoutClicked" />
+            </Grid>
 
             <!-- Listings Container -->
             <Frame
@@ -27,9 +50,7 @@
                 CornerRadius="12"
                 Padding="15"
                 HasShadow="False">
-
                 <Grid>
-
                     <!-- Placeholder for empty listings -->
                     <Label x:Name="EmptyPlaceholder"
                            Text="No listings yet!"
@@ -38,7 +59,6 @@
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            IsVisible="False" />
-
                     <!-- Listings -->
                     <CollectionView x:Name="ListingsCollectionView"
                                     ItemsSource="{Binding Listings}">
@@ -54,10 +74,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-
                 </Grid>
             </Frame>
-
         </VerticalStackLayout>
     </ScrollView>
 </local:PageWithNavBar>

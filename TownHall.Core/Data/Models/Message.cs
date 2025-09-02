@@ -24,5 +24,13 @@ namespace TownHall.Core
 		public Guid BuyerId { get; set; }
 		[NotMapped]
 		public User Buyer { get; set; }
+
+
+		[ForeignKey("User")]
+		public Guid SenderId { get; set; }
+		[NotMapped]
+		public User Sender { get; set; }
+
+		public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 	}
 }

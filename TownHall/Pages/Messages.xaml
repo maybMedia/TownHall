@@ -2,5 +2,161 @@
 <local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:local="clr-namespace:TownHall"
-             x:Class="TownHall.Messages">
+             x:Class="TownHall.Messages"
+             Title="Messages">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <StackLayout Grid.Row="0" Padding="20,10,20,0" Spacing="10">
+
+            <!-- Conversations Count -->
+            <Label x:Name="ConversationCountLabel"
+                   Text="Recent Conversations"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}"
+                   Margin="0,10,0,0" />
+
+        </StackLayout>
+
+        <!-- Conversations List -->
+        <CollectionView Grid.Row="1" 
+                        x:Name="ConversationsCollectionView"
+                        ItemsSource="{Binding Conversations}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnConversationSelected"
+                        BackgroundColor="Transparent"
+                        Margin="10,0,10,0">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0,5">
+
+                        <!-- Conversation Item Frame -->
+                        <Frame Padding="15" Margin="0,2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Profile Picture -->
+                                <Frame Grid.Column="0" 
+                                       Grid.RowSpan="2"
+                                       WidthRequest="45"
+                                       HeightRequest="45"
+                                       CornerRadius="22.5"
+                                       Padding="0"
+                                       BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                       VerticalOptions="Center">
+
+                                    <Grid>
+                                        <!-- Use Image if profile picture available, otherwise show initials -->
+                                        <Label Text="{Binding UserInitials}"
+                                               TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               IsVisible="{Binding HasItemPicture }" />
+
+                                        <Image Source="{Binding ItemPictureUrl}"
+                                               Aspect="AspectFill"
+                                               IsVisible="{Binding HasItemPicture}" />
+                                    </Grid>
+                                </Frame>
+
+                                <!-- User Name -->
+                                <Label Grid.Column="1" 
+                                       Grid.Row="0"
+                                       Text="{Binding DisplayName}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                       VerticalOptions="End"
+                                       Margin="15,0,0,0" />
+
+                                <!-- Last Message Preview -->
+                                <Label Grid.Column="1" 
+                                       Grid.Row="1"
+                                       Text="{Binding LastMessagePreview}"
+                                       FontSize="14"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}"
+                                       MaxLines="1"
+                                       LineBreakMode="TailTruncation"
+                                       VerticalOptions="Start"
+                                       Margin="15,2,0,0" />
+
+                                <!-- Right Side Info -->
+                                <StackLayout Grid.Column="2" 
+                                             Grid.RowSpan="2"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="End"
+                                             Spacing="5">
+
+                                    <!-- Time Stamp -->
+                                    <Label Text="{Binding LastMessageTime}"
+                                           FontSize="12"
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}"
+                                           HorizontalTextAlignment="End" />
+
+                                    <!-- Pale red dot indicator -->
+                                    <BoxView WidthRequest="10"
+                                             HeightRequest="10"
+                                             CornerRadius="5"
+                                             Color="IndianRed"
+                                             IsVisible="{Binding ShowUnreadIndicator}"
+                                             HorizontalOptions="End" />
+                                </StackLayout>
+
+
+                            </Grid>
+                        </Frame>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- Empty State -->
+            <CollectionView.EmptyView>
+                <StackLayout VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand"
+                           Padding="40">
+                    <Label Text="💬"
+                           FontSize="48"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,0,0,20" />
+                    <Label Text="No conversations yet"
+                           Style="{StaticResource SubHeadline}"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="Start a conversation by searching for users or creating a new message."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,10,0,0" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+
+        </CollectionView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator Grid.RowSpan="2"
+                          x:Name="LoadingIndicator"
+                          IsVisible="{Binding IsLoading}"
+                          IsRunning="{Binding IsLoading}"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center" />
+
+    </Grid>
+
 </local:PageWithNavBar>
