@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using TownHall.Core;
 
 namespace TownHall;
@@ -37,17 +38,48 @@ public partial class Messages : PageWithNavBar
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-		await _viewModel.LoadConversations();
+
+		var grid = (Grid)Content;
+
+		if (itemId.HasValue && buyerId.HasValue)
+		{
+			// Replace "Recent Conversations" with "Chat"
+			ConversationCountLabel.Text = "Chat";
+
+			// Hide the conversations list
+			ConversationsCollectionView.IsVisible = false;
+
+			// Add ChatView
+			var chatView = new ChatView(itemId.Value, buyerId.Value, _messageService, _userService, _itemService);
+			Grid.SetRow(chatView, 1);
+			grid.Children.Add(chatView);
+		}
+		else
+		{
+			// Reset label if coming back to conversations
+			ConversationCountLabel.Text = "Recent Conversations";
+
+			ConversationsCollectionView.IsVisible = true;
+			await _viewModel.LoadConversations();
+		}
 	}
 
-	private void OnConversationSelected(object? sender, SelectionChangedEventArgs e)
+
+
+
+	private async void OnConversationSelected(object sender, SelectionChangedEventArgs e)
 	{
-		if (e.CurrentSelection.FirstOrDefault() is Conversation conversation)
+		if (e.CurrentSelection.FirstOrDefault() is ConversationViewModel conversation)
 		{
-			// navigate to conversation detail page
-			Shell.Current.GoToAsync(
-				$"messages?itemId={conversation.ItemId}&buyerId={conversation.BuyerId}");
+			Console.WriteLine($"Navigating to chat: ItemId={conversation.ItemId}, BuyerId={conversation.BuyerId}");
+
+			// Navigate to the same Messages page but pass ItemId and BuyerId as query parameters
+			var route = $"Messages?itemId={conversation.ItemId}&buyerId={conversation.BuyerId}";
+			await Shell.Current.GoToAsync(route);
 		}
+
+		// Deselect the item
+		((CollectionView)sender).SelectedItem = null;
 	}
 }
 
@@ -134,4 +166,175 @@ public class ConversationViewModel
 			: null;
 
 	public bool ShowUnreadIndicator { get; set; }
+}
+
+public class ChatView : ContentView
+{
+	private readonly Guid _itemId;
+	private readonly Guid _buyerId;
+	private readonly IMessageService _messageService;
+	private readonly IUserService _userService;
+	private readonly IItemService _itemService;
+
+	private ObservableCollection<Message> _messages = new();
+	private CollectionView _messagesList;
+	private Entry _inputEntry;
+	private Button _sendButton;
+
+	public ChatView(Guid itemId, Guid buyerId, IMessageService messageService, IUserService userService, IItemService itemService)
+	{
+		_itemId = itemId;
+		_buyerId = buyerId;
+		_messageService = messageService;
+		_userService = userService;
+		_itemService = itemService;
+
+		BuildUI();
+		LoadMessages();
+	}
+
+	private void BuildUI()
+	{
+		_messagesList = new CollectionView
+		{
+			ItemsSource = _messages,
+			ItemTemplate = new DataTemplate(() =>
+			{
+				var grid = new Grid
+				{
+					ColumnDefinitions =
+				{
+					new ColumnDefinition { Width = GridLength.Star },
+					new ColumnDefinition { Width = GridLength.Star }
+				},
+					Margin = new Thickness(10, 2) // Increase left/right margin
+				};
+
+				var frame = new Frame
+				{
+					Padding = 10,
+					CornerRadius = 10,
+					HasShadow = false,
+				};
+
+				var label = new Label
+				{
+					LineBreakMode = LineBreakMode.WordWrap,
+					FontSize = 14,
+				};
+				label.SetBinding(Label.TextProperty, "Content");
+
+				frame.Content = label;
+
+				frame.BindingContextChanged += (s, e) =>
+				{
+					if (frame.BindingContext is Message msg)
+					{
+						bool isCurrentUser = msg.SenderId == GlobalCurrentUser.User.Id;
+
+						Grid.SetColumn(frame, isCurrentUser ? 1 : 0);
+						frame.HorizontalOptions = isCurrentUser ? LayoutOptions.End : LayoutOptions.Start;
+
+						// Add extra spacing from the edge
+						frame.Margin = new Thickness(isCurrentUser ? 0 : 10, 2, isCurrentUser ? 10 : 0, 2);
+
+						frame.BackgroundColor = isCurrentUser ? Colors.LightBlue : Colors.LightGray;
+						label.TextColor = isCurrentUser ? Colors.White : Colors.Black;
+					}
+				};
+
+				grid.Children.Add(frame);
+				return grid;
+			})
+		};
+
+		_inputEntry = new Entry
+		{
+			Placeholder = "Type a message...",
+			HorizontalOptions = LayoutOptions.FillAndExpand
+		};
+
+		_sendButton = new Button
+		{
+			Text = "Send",
+			WidthRequest = 80
+		};
+		_sendButton.Clicked += OnSendClicked;
+
+		var inputLayout = new Grid
+		{
+			ColumnDefinitions =
+		{
+			new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+			new ColumnDefinition { Width = GridLength.Auto }
+		},
+			Padding = new Thickness(10, 5)
+		};
+		inputLayout.Add(_inputEntry, 0, 0);
+		inputLayout.Add(_sendButton, 1, 0);
+
+		// Wrap the messages list in a Grid with padding
+		var mainGrid = new Grid
+		{
+			RowDefinitions =
+		{
+			new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+			new RowDefinition { Height = GridLength.Auto }
+		},
+			Padding = new Thickness(10) // This adds padding around the whole chat
+		};
+		mainGrid.Add(_messagesList, 0, 0);
+		mainGrid.Add(inputLayout, 0, 1);
+
+		Content = mainGrid;
+	}
+
+
+	private void LoadMessages()
+	{
+		var messages = _messageService.GetMessagesByBuyerIdAndItemId(_buyerId, _itemId);
+		_messages.Clear();
+		foreach (var msg in messages.OrderBy(m => m.Timestamp))
+			_messages.Add(msg);
+
+		// Scroll to bottom
+		if (_messages.Count > 0)
+			_messagesList.ScrollTo(_messages.Last(), position: ScrollToPosition.End);
+	}
+
+	private void OnSendClicked(object sender, EventArgs e)
+	{
+		if (!string.IsNullOrWhiteSpace(_inputEntry.Text))
+		{
+			var msg = new Message
+			{
+				BuyerId = _buyerId,
+				SellerId = _itemService.GetItemById(_itemId).SellerId,
+				ItemId = _itemId,
+				SenderId = GlobalCurrentUser.User.Id,
+				Content = _inputEntry.Text,
+				Timestamp = DateTime.UtcNow
+			};
+			_messageService.SendMessage(msg);
+			_messages.Add(msg);
+			_inputEntry.Text = "";
+
+			_messagesList.ScrollTo(msg, position: ScrollToPosition.End);
+		}
+	}
+}
+
+// Converter to align messages left/right depending on sender
+public class MessageAlignmentConverter : IValueConverter
+{
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		if (value is Guid senderId)
+		{
+			return senderId == GlobalCurrentUser.User.Id ? LayoutOptions.End : LayoutOptions.Start;
+		}
+		return LayoutOptions.Start;
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
