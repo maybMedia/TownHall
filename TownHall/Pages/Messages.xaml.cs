@@ -37,7 +37,7 @@ public partial class Messages : PageWithNavBar
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-		await _viewModel.LoadConversations(buyerId, itemId);
+		await _viewModel.LoadConversations();
 	}
 
 	private void OnConversationSelected(object? sender, SelectionChangedEventArgs e)
@@ -46,7 +46,7 @@ public partial class Messages : PageWithNavBar
 		{
 			// navigate to conversation detail page
 			Shell.Current.GoToAsync(
-				$"conversation?itemId={conversation.ItemId}&buyerId={conversation.BuyerId}");
+				$"messages?itemId={conversation.ItemId}&buyerId={conversation.BuyerId}");
 		}
 	}
 }
@@ -82,29 +82,12 @@ public class MessagesViewModel : BindableObject
 	}
 
 
-	public async Task LoadConversations(Guid? buyerId = null, Guid? itemId = null)
+	public async Task LoadConversations()
 	{
 		IsLoading = true;
 		List<Conversation> conversations;
 
-		if (buyerId.HasValue && itemId.HasValue)
-		{
-			var messages = _messageService.GetMessagesByBuyerIdAndItemId(buyerId.Value, itemId.Value);
-			conversations = new List<Conversation>
-			{
-				new Conversation
-				{
-					BuyerId = buyerId.Value,
-					ItemId = itemId.Value,
-					SellerId = messages.FirstOrDefault()?.SellerId ?? Guid.Empty,
-					Messages = messages
-				}
-			};
-		}
-		else
-		{
-			conversations = _messageService.getUserConversations(_currentUserId);
-		}
+		conversations = _messageService.getUserConversations(_currentUserId);
 
 		// Map to ConversationViewModel
 		var mapped = conversations.Select(c =>
