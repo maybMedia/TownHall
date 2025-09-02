@@ -7,6 +7,8 @@
 
 		IUserRepository UserRepository { get; }
 
+		IMessageRepository MessageRepository { get; }
+
 		public void SaveChanges();
 	}
 }

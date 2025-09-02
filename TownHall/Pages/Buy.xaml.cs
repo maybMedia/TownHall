@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TownHall.Core;
@@ -17,6 +16,8 @@ public partial class Buy : PageWithNavBar, INotifyPropertyChanged
 	}
 
 	private IItemService _itemService;
+	IMessageService _messageService;
+	IUserService _userService;
 
 	public ICommand ViewCommand { get; }
 	public ICommand MessageCommand { get; }
@@ -39,11 +40,13 @@ public partial class Buy : PageWithNavBar, INotifyPropertyChanged
 
 	public bool NoItemsToDisplay => DisplayedItems.Count == 0;
 
-	public Buy(IItemService itemService)
+	public Buy(IItemService itemService, IMessageService messageService, IUserService userService)
 	{
 		InitializeComponent();
 
 		_itemService = itemService;
+		_messageService = messageService;
+		_userService = userService;
 
 		_displayedItems.CollectionChanged += (s, e) =>
 		{
@@ -61,6 +64,22 @@ public partial class Buy : PageWithNavBar, INotifyPropertyChanged
 		{
 			if (item != null)
 			{
+				if (_messageService.GetMessagesByBuyerIdAndItemId(GlobalCurrentUser.User.Id, item.Id).Count < 1)
+				{
+					_messageService.SendMessage(new Message
+					{
+						Buyer = GlobalCurrentUser.User,
+						BuyerId = GlobalCurrentUser.User.Id,
+						Seller = _userService.GetUserById(item.SellerId),
+						SellerId = item.SellerId,
+						Item = item,
+						ItemId = item.Id,
+						Sender = GlobalCurrentUser.User,
+						SenderId = GlobalCurrentUser.User.Id,
+						Content = "Hello, I am interested in your item.",
+						Timestamp = DateTime.UtcNow
+					});
+				}
 				await Shell.Current.GoToAsync($"{nameof(Messages)}?messageId={item.Id}");
 			}
 		});

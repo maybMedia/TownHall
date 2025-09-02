@@ -56,6 +56,12 @@ public partial class Account : PageWithNavBar
 			Listings = new ObservableCollection<Item>(listings)
 		};
 	}
+
+	private void OnLogoutClicked(object? sender, EventArgs e)
+	{
+		GlobalCurrentUser.User = null;
+		Application.Current.MainPage = new Login(_userService);
+	}
 }
 
 

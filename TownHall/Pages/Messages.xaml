@@ -68,11 +68,11 @@
                                                FontAttributes="Bold"
                                                HorizontalTextAlignment="Center"
                                                VerticalTextAlignment="Center"
-                                               IsVisible="{Binding HasProfilePicture, Converter={StaticResource InvertedBoolConverter}}" />
+                                               IsVisible="{Binding HasItemPicture, Converter={StaticResource InvertedBoolConverter}}" />
 
-                                        <Image Source="{Binding ProfilePictureUrl}"
+                                        <Image Source="{Binding ItemPictureUrl}"
                                                Aspect="AspectFill"
-                                               IsVisible="{Binding HasProfilePicture}" />
+                                               IsVisible="{Binding HasItemPicture}" />
                                     </Grid>
                                 </Frame>
 
@@ -99,10 +99,10 @@
 
                                 <!-- Right Side Info -->
                                 <StackLayout Grid.Column="2" 
-                                           Grid.RowSpan="2"
-                                           VerticalOptions="Center"
-                                           HorizontalOptions="End"
-                                           Spacing="5">
+                                             Grid.RowSpan="2"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="End"
+                                             Spacing="5">
 
                                     <!-- Time Stamp -->
                                     <Label Text="{Binding LastMessageTime}"
@@ -110,30 +110,15 @@
                                            TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}"
                                            HorizontalTextAlignment="End" />
 
-                                    <!-- Unread Badge -->
-                                    <Frame IsVisible="{Binding HasUnreadMessages}"
-                                           BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                                           CornerRadius="10"
-                                           Padding="8,4"
-                                           MinimumWidthRequest="20"
-                                           HeightRequest="20"
-                                           HorizontalOptions="End">
-                                        <Label Text="{Binding UnreadCount}"
-                                               TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
-                                               FontSize="10"
-                                               FontAttributes="Bold"
-                                               HorizontalTextAlignment="Center"
-                                               VerticalTextAlignment="Center" />
-                                    </Frame>
-
-                                    <!-- Online Status Indicator -->
-                                    <BoxView IsVisible="{Binding IsOnline}"
-                                             WidthRequest="8"
-                                             HeightRequest="8"
-                                             CornerRadius="4"
-                                             BackgroundColor="Green"
+                                    <!-- Pale red dot indicator -->
+                                    <BoxView WidthRequest="10"
+                                             HeightRequest="10"
+                                             CornerRadius="5"
+                                             Color="IndianRed"
+                                             IsVisible="{Binding ShowUnreadIndicator}"
                                              HorizontalOptions="End" />
                                 </StackLayout>
+
 
                             </Grid>
                         </Frame>

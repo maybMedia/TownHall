@@ -8,11 +8,14 @@
 
 		public IUserRepository UserRepository { get; }
 
+		public IMessageRepository MessageRepository { get; }
+
 		public UnitOfWork(TownHallContext context)
 		{
 			_context = context;
 			ItemRepository = new ItemRepository(_context);
 			UserRepository = new UserRepository(_context);
+			MessageRepository = new MessageRepository(_context);
 		}
 
 		public void Dispose()
