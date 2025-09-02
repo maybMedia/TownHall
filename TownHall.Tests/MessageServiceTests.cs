@@ -1,6 +1,6 @@
 ﻿namespace TownHall.Tests;
 
-public class UserRepositoryTests
+public class MessageServiceTests
 {
 
 }
