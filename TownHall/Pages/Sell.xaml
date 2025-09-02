@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			         xmlns:local="clr-namespace:TownHall"
+                     x:Class="TownHall.Sell">
+	<VerticalStackLayout Padding="10" Spacing="10">
+		<SearchBar x:Name="Search"
+                   Placeholder="Search for a listing"
+                   SearchButtonPressed="OnSearchBarButtonPressed" />
+
+		<CollectionView x:Name="ItemCollectionView"
+                        Margin="10"
+                        ItemsSource="{Binding DisplayedItems}">
+
+			<CollectionView.ItemsLayout>
+				<GridItemsLayout Orientation="Vertical"
+                                 Span="4"
+                                 HorizontalItemSpacing="8"
+                                 VerticalItemSpacing="8"/>  
+			</CollectionView.ItemsLayout>
+
+			<CollectionView.ItemTemplate>
+				<DataTemplate>
+					<Frame Padding="5"
+                           CornerRadius="8"
+                           BackgroundColor="White"
+                           HasShadow="True">
+						<VerticalStackLayout>
+							<Image Source="{Binding ImageSource}" 
+                                   Aspect="AspectFill" 
+                                   HeightRequest="70"/>
+							<Label Text="{Binding Name}" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold"
+                                   LineBreakMode="TailTruncation"/>
+							<Label Text="{Binding Price, StringFormat='{0:C}'}" 
+                                   TextColor="Gray"/>
+							<Label Text="{Binding Summary}"
+                                    FontSize="10"
+                                    TextColor="Gray"
+                                    LineBreakMode="WordWrap"/>
+							<HorizontalStackLayout Spacing="5">
+							    <Button Text="View"
+                                        FontSize="10"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:Sell}}, Path=ViewCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#0078D7"
+                                        TextColor="White"
+                                        CornerRadius="6"
+                                        Padding="5,2"/>
+							    <Button Text="Message"
+                                        FontSize="10"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:Sell}}, Path=MessageCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#28A745"
+                                        TextColor="White"
+                                        CornerRadius="6"
+                                        Padding="5,2"/>
+						    </HorizontalStackLayout>
+						</VerticalStackLayout>
+					</Frame>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+
+		<Label Text="No listings"
+			   IsVisible="{Binding NoItemsToDisplay}"
+			   FontSize="14"
+			   HorizontalOptions="Center"
+			   VerticalOptions="Center"/>
+
+		<Button Text="Create New Listing"
+                Clicked="OnCreateNewClicked" />
+	</VerticalStackLayout>
+</local:PageWithNavBar>
