@@ -1,22 +1,27 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			         xmlns:local="clr-namespace:TownHall"
-					 xmlns:converters="clr-namespace:TownHall"
-                     x:Class="TownHall.Sell">
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:local="clr-namespace:TownHall"
+                      xmlns:converters="clr-namespace:TownHall"
+                      x:Class="TownHall.Sell">
+
 	<local:PageWithNavBar.Resources>
 		<ResourceDictionary>
 			<converters:ImageConverter x:Key="ImageConverter"/>
 		</ResourceDictionary>
 	</local:PageWithNavBar.Resources>
-	
-	<VerticalStackLayout Padding="10" Spacing="10">
+
+	<!-- Main layout -->
+	<Grid RowDefinitions="Auto,*,Auto" Padding="10" RowSpacing="10">
+		<!-- Search Bar -->
 		<SearchBar x:Name="Search"
+                   Grid.Row="0"
                    Placeholder="Search for a listing"
+                   WidthRequest="600"
                    SearchButtonPressed="OnSearchBarButtonPressed" />
 
-
+		<!-- Listings -->
 		<CollectionView x:Name="ItemCollectionView"
+                        Grid.Row="1"
                         Margin="10"
                         ItemsSource="{Binding DisplayedItems}">
 
@@ -24,60 +29,84 @@
 				<GridItemsLayout Orientation="Vertical"
                                  Span="4"
                                  HorizontalItemSpacing="8"
-                                 VerticalItemSpacing="8"/>  
+                                 VerticalItemSpacing="8"/>
 			</CollectionView.ItemsLayout>
 
 			<CollectionView.ItemTemplate>
 				<DataTemplate>
 					<Frame Padding="5"
-                           CornerRadius="8"
-                           BackgroundColor="White"
-                           HasShadow="True">
+                           CornerRadius="12"
+                           BackgroundColor="#C7F9CC"
+                           HasShadow="True"
+                           HeightRequest="450">
 						<VerticalStackLayout>
-							<Image Source="{Binding ImageData, Converter={StaticResource ImageConverter}}" 
-                                   Aspect="AspectFill" 
-                                   HeightRequest="70"/>
-							<Label Text="{Binding Name}" 
-                                   FontSize="12" 
-                                   FontAttributes="Bold"
-                                   LineBreakMode="TailTruncation"/>
-							<Label Text="{Binding Price, StringFormat='{0:C}'}" 
-                                   TextColor="Gray"/>
-							<Label Text="{Binding Summary}"
-                                    FontSize="10"
-                                    TextColor="Gray"
-                                    LineBreakMode="WordWrap"/>
-							<HorizontalStackLayout Spacing="5">
-							    <Button Text="View"
-                                        FontSize="10"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:Sell}}, Path=ViewCommand}"
-                                        CommandParameter="{Binding .}"
-                                        BackgroundColor="#0078D7"
-                                        TextColor="White"
-                                        CornerRadius="6"
-                                        Padding="5,2"/>
-							    <Button Text="Message"
-                                        FontSize="10"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:Sell}}, Path=MessageCommand}"
-                                        CommandParameter="{Binding .}"
-                                        BackgroundColor="#28A745"
-                                        TextColor="White"
-                                        CornerRadius="6"
-                                        Padding="5,2"/>
-						    </HorizontalStackLayout>
+							<Grid>
+								<Border StrokeShape="RoundRectangle 12"
+                                        HeightRequest="350"
+                                        Margin="5">
+									<Image Source="{Binding ImageData, Converter={StaticResource ImageConverter}}"
+                                           Aspect="AspectFill"/>
+								</Border>
+							</Grid>
+
+							<Grid ColumnDefinitions="*,Auto" Padding="0,5,0,0">
+								<VerticalStackLayout Grid.Column="0" Spacing="2">
+									<Label Text="{Binding Name}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold"
+                                           LineBreakMode="TailTruncation"/>
+									<Label Text="{Binding Price, StringFormat='{0:C}'}" 
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+									<Label Text="{Binding Summary}"
+                                           FontSize="10"
+                                           TextColor="Gray"
+                                           LineBreakMode="WordWrap"/>
+								</VerticalStackLayout>
+
+								<Grid Grid.Column="1" ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
+									<Button Grid.Column="0"
+                                            Text="View"
+                                            FontSize="10"
+                                            WidthRequest="70"
+                                            Padding="2,0"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:Sell}}, Path=ViewCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#57CC99"
+                                            TextColor="White"
+                                            CornerRadius="6"/>
+
+									<Button Grid.Column="1"
+                                            Text="Message"
+                                            FontSize="10"
+                                            WidthRequest="70"
+                                            Padding="2,0"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:Sell}}, Path=MessageCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#57CC99"
+                                            TextColor="White"
+                                            CornerRadius="6"/>
+								</Grid>
+							</Grid>
 						</VerticalStackLayout>
 					</Frame>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
 		</CollectionView>
 
-		<Label Text="No listings"
-			   IsVisible="{Binding NoItemsToDisplay}"
-			   FontSize="14"
-			   HorizontalOptions="Center"
-			   VerticalOptions="Center"/>
+		<!-- No listings label -->
+		<Label Grid.Row="1"
+               Text="No listings"
+               IsVisible="{Binding NoItemsToDisplay}"
+               FontSize="14"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
 
-		<Button Text="Create New Listing"
+		<!-- Fixed bottom button -->
+		<Button Grid.Row="2"
+                Text="Create New Listing"
+                WidthRequest="400"
+                HorizontalOptions="Center"
                 Clicked="OnCreateNewClicked" />
-	</VerticalStackLayout>
+	</Grid>
 </local:PageWithNavBar>
