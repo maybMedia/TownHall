@@ -44,7 +44,6 @@ namespace TownHall.Core
 			item.Summary = summary;
 			item.Description = description;
 			item.ListedDate = isNewItem ? DateTime.Now : item.ListedDate;
-			item.IsAvailable = true; // will handle closing listings later
 			item.SellerId = GlobalCurrentUser.User.Id;
 		}
 	}
