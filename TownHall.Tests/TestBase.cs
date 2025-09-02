@@ -41,7 +41,7 @@ namespace TownHall.Tests
 				new User
 				{
 					Id = Guid.NewGuid(),
-					Password = "Pass@123", // use hashed passwords in production
+					Password = "Pass@123",
 					FirstName = "Alice",
 					LastName = "Johnson",
 					Email = "alice.johnson@example.com",
