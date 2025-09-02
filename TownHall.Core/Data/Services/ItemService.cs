@@ -11,9 +11,12 @@
 
 		public List<Item> SearchForItems(string query, bool isCurrentUsersItems)
 		{
+			query = query.ToLower();
 			return _unitOfWork.ItemRepository.GetAll()
 				.Where(i => (i.SellerId == GlobalCurrentUser.User.Id) == isCurrentUsersItems)
-				.Where(i => i.Name.Contains(query) || i.Summary.Contains(query) || i.Description.Contains(query))
+				.Where(i => i.Name.ToLower().Contains(query) 
+						 || i.Summary.ToLower().Contains(query) 
+						 || i.Description.ToLower().Contains(query))
 				.ToList();
 		}
 
