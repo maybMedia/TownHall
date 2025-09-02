@@ -108,7 +108,7 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 
 	private async void OnSaveClicked(object sender, EventArgs e)
 	{
-		var isValid = MapFieldsToItemObject(out var item);
+		var isValid = TryMapInputToItem(out var item);
 		if (IsNewItem)
 		{
 			if (isValid)
@@ -138,7 +138,7 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		Navigation.PopAsync();
 	}
 
-	private bool MapFieldsToItemObject(out Item item)
+	private bool TryMapInputToItem(out Item item)
 	{
 		item = _itemService.GetItemById(itemId) ?? new Item();
 
@@ -149,33 +149,19 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 		var description = DescriptionEntry.Text?.Trim();
 
 		// validate
-		if (string.IsNullOrEmpty(priceText) ||
-			string.IsNullOrEmpty(summary) ||
-			string.IsNullOrEmpty(name) ||
-			string.IsNullOrEmpty(description))
+		if (!ItemMapper.ValidateTextFields(priceText, summary, name, description))
+		{
+			return false;
+		}
+		if (!ItemMapper.ValidatePrice(priceText, out var price))
 		{
 			return false;
 		}
 
-		if (!decimal.TryParse(priceText, out decimal price)) return false;
-
 		// now can map
-		item.Id = IsNewItem ? Guid.NewGuid() : itemId;
-		item.Name = name;
-		item.Price = price;
-		item.ImageData = _imageData;
-		item.Summary = summary;
-		item.Description = description;
-		item.ListedDate = IsNewItem ? DateTime.Now : GetListedDate();
-		item.IsAvailable = true; // will handle closing listings later
-		item.SellerId = GlobalCurrentUser.User.Id;
+		ItemMapper.MapItem(item, IsNewItem, itemId, name, price, _imageData, summary, description);
 
 		return true;
-	}
-
-	private DateTime GetListedDate()
-	{
-		return _itemService.GetItemById(itemId)?.ListedDate ?? DateTime.Now;
 	}
 
 	private void OnDeleteClicked(object sender, EventArgs e)
