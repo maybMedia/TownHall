@@ -2,7 +2,14 @@
 <local:PageWithNavBar xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			         xmlns:local="clr-namespace:TownHall"
+					 xmlns:converters="clr-namespace:TownHall"
                      x:Class="TownHall.Buy">
+	<local:PageWithNavBar.Resources>
+		<ResourceDictionary>
+			<converters:ImageConverter x:Key="ImageConverter"/>
+		</ResourceDictionary>
+	</local:PageWithNavBar.Resources>
+	
 	<VerticalStackLayout Padding="10" Spacing="10">
 		<SearchBar x:Name="Search"
                    Placeholder="Search for a listing"
@@ -26,7 +33,7 @@
                            BackgroundColor="White"
                            HasShadow="True">
 						<VerticalStackLayout>
-							<Image Source="{Binding ImageSource}" 
+							<Image Source="{Binding ImageData, Converter={StaticResource ImageConverter}}"
                                    Aspect="AspectFill" 
                                    HeightRequest="70"/>
 							<Label Text="{Binding Name}" 
