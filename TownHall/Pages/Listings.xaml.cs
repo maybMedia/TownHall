@@ -94,7 +94,10 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 
 	private void PopulateEntryFields(Item item)
 	{
-		Image.Source = ImageSource.FromStream(() => new MemoryStream(item.ImageData));
+		if (item.ImageData != null)
+		{
+			Image.Source = ImageSource.FromStream(() => new MemoryStream(item.ImageData));
+		}
 		PriceEntry.Text = item.Price.ToString();
 		SummaryEntry.Text = item.Summary;
 		NameEntry.Text = item.Name;
