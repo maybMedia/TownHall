@@ -18,7 +18,6 @@ namespace TownHall.Core
 		public string Summary { get; set; }
 		public string Description { get; set; }
 		public DateTime ListedDate { get; set; }
-		public bool IsAvailable { get; set; }
 
 		[ForeignKey("User")]
 		public Guid SellerId { get; set; }

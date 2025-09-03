@@ -9,24 +9,39 @@
 		<!-- Left Side -->
 		<VerticalStackLayout Grid.Column="0" Spacing="15">
 			<!-- Big Image -->
-			<Image x:Name="Image"
-                   Aspect="AspectFill"
-                   HeightRequest="250"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Start" />
-			<Button Text="Select Image" 
-					Clicked="OnSelectImageClicked"
-					IsVisible="{Binding IsEditMode}"/>
+			<Grid HeightRequest="450">
+				<!-- Big Image -->
+				<Frame CornerRadius="20" 
+					   HasShadow="False" 
+					   Padding="0" 
+					   IsClippedToBounds="True"
+					   HorizontalOptions="Fill" 
+					   VerticalOptions="Fill">
+					<Image x:Name="Image"
+							Aspect="AspectFill"
+							HorizontalOptions="Fill"
+							VerticalOptions="Fill" />
+				</Frame>
+
+				<!-- Overlay Button -->
+				<Button Text="Select Image" 
+						Clicked="OnSelectImageClicked"
+						IsVisible="{Binding IsEditMode}"
+						HorizontalOptions="Center"
+						VerticalOptions="Center"
+						BackgroundColor="#AA000000" 
+						TextColor="White"/>
+			</Grid>
 
 			<!-- Input Fields -->
 			<VerticalStackLayout Spacing="10">
 				<VerticalStackLayout>
-					<Label Text="Price"
-						   FontAttributes="Bold"
-						   FontSize="16"/>	
-					<Entry x:Name="PriceEntry" 
-						   IsReadOnly="{Binding IsFieldsReadOnly}"
-						   Placeholder="Price" />
+					<Label Text="Item Name"
+							FontAttributes="Bold"
+							FontSize="24"/>
+					<Entry x:Name="NameEntry" 
+							IsReadOnly="{Binding IsFieldsReadOnly}"
+				    		Placeholder="Item name" />
 				</VerticalStackLayout>
 
 				<VerticalStackLayout>
@@ -44,48 +59,54 @@
 						   Margin="0,20,0,0">
 
 				<Button Text="Delete"
-				x:Name="DeleteButton"
-				IsVisible="{Binding IsEditMode}"
-				IsEnabled="{Binding EnableDelete}"
-				Clicked="OnDeleteClicked"
-				BackgroundColor="Red"
-				TextColor="White"
-				CornerRadius="8"
-				HeightRequest="50"
-				WidthRequest="120"
-				HorizontalOptions="Start"
-				VerticalOptions="Center" />
+						x:Name="DeleteButton"
+						IsVisible="{Binding IsEditMode}"
+						IsEnabled="{Binding EnableDelete}"
+						Clicked="OnDeleteClicked"
+						BackgroundColor="#C7F9CC"
+						TextColor="Black"
+						CornerRadius="8"
+						HeightRequest="50"
+						WidthRequest="120"
+						HorizontalOptions="Start"
+						VerticalOptions="Center" />
 
 				<Button Text="Save"
-				x:Name="SaveButton"
-				IsVisible="{Binding IsEditMode}"
-				Clicked="OnSaveClicked"
-				BackgroundColor="Green"
-				TextColor="White"
-				CornerRadius="8"
-				HeightRequest="50"
-				WidthRequest="120"
-				HorizontalOptions="End"
-				VerticalOptions="Center" />
+						x:Name="SaveButton"
+						IsVisible="{Binding IsEditMode}"
+						Clicked="OnSaveClicked"
+						BackgroundColor="#57CC99"
+						TextColor="White"
+						CornerRadius="8"
+						HeightRequest="50"
+						WidthRequest="120"
+						HorizontalOptions="End"
+						VerticalOptions="Center" />
 			</HorizontalStackLayout>
 		</VerticalStackLayout>
 
 		<!-- Right Side -->
 		<Frame Grid.Column="1"
                BorderColor="LightGray"
+			   BackgroundColor="#C7F9CC"
                CornerRadius="12"
                Padding="20"
                HasShadow="True">
 			<VerticalStackLayout Spacing="15">
-				<VerticalStackLayout>
-					<Label Text="Item Name"
-                           FontAttributes="Bold"
-                           FontSize="16"/>
-					<Entry x:Name="NameEntry" 
-						   IsReadOnly="{Binding IsFieldsReadOnly}"
-						   Placeholder="Item name" />
-				</VerticalStackLayout>
+				<Label Text="Details"
+					   FontAttributes="Bold"
+					   FontSize="24"
+					   HorizontalOptions="Center" />
 				
+				<VerticalStackLayout>
+					<Label Text="Price"
+					   FontAttributes="Bold"
+					   FontSize="16"/>
+					<Entry x:Name="PriceEntry" 
+					   IsReadOnly="{Binding IsFieldsReadOnly}"
+					   Placeholder="Price" />
+				</VerticalStackLayout>
+
 				<VerticalStackLayout>
 					<Label Text="Description"
                            FontAttributes="Bold"

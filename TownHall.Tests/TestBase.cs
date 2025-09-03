@@ -81,7 +81,6 @@ namespace TownHall.Tests
 					Summary = "Antique oak writing desk in good condition.",
 					Description = "A classic oak desk from the 1940s, minor scratches but structurally sound. Great for a home office.",
 					ListedDate = DateTime.UtcNow.AddDays(-10),
-					IsAvailable = true,
 					SellerId = testUsers.First().Id,
 					ImageData = null
 				},
@@ -93,7 +92,6 @@ namespace TownHall.Tests
 					Summary = "High-end gaming laptop with latest GPU.",
 					Description = "Intel i9, 32GB RAM, 1TB SSD, RTX 4070 graphics card. Perfect for gaming and content creation.",
 					ListedDate = DateTime.UtcNow.AddDays(-3),
-					IsAvailable = true,
 					SellerId = testUsers.First().Id,
 					ImageData = null
 				},
@@ -105,7 +103,6 @@ namespace TownHall.Tests
 					Summary = "Lightweight mountain bike for trails.",
 					Description = "27-speed, front suspension, hydraulic disc brakes, barely used. Ideal for off-road and city rides.",
 					ListedDate = DateTime.UtcNow.AddDays(-1),
-					IsAvailable = false,
 					SellerId = testUsers.Last().Id,
 					ImageData = null
 				}
