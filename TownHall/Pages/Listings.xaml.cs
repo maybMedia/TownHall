@@ -120,6 +120,8 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 				_itemService.AddItem(item);
 
 				await DisplayAlert("Created Successfully", "Your listing has been created.", "OK");
+
+				Navigation.PopAsync();
 			}
 			else 
 			{
@@ -131,15 +133,16 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 			if (isValid)
 			{
 				_itemService.UpdateItem(item);
+
 				await DisplayAlert("Saved Successfully", "Your changes have been saved.", "OK");
+
+				Navigation.PopAsync();
 			}
 			else
 			{
 				await DisplayAlert("Error", "There was an error saving your changes. Please try again.", "OK");
 			}
 		}
-
-		Navigation.PopAsync();
 	}
 
 	private bool TryMapInputToItem(out Item item)
