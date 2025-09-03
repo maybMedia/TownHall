@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using Moq;
 using TownHall.Core;
 
@@ -8,11 +7,11 @@ namespace TownHall.Tests
 	{
 		public Mock<IItemRepository> mockItemRepo;
 		public Mock<IUserRepository> mockUserRepo;
-		//public Mock<MessageRepository> mockMessageRepo;
+		public Mock<IMessageRepository> mockMessageRepo;
 
 		public ItemService itemService;
 		public UserService userService;
-		//public MessageService messageService;
+		public MessageService messageService;
 
 		[SetUp]
 		public void Setup()
@@ -21,15 +20,15 @@ namespace TownHall.Tests
 
 			mockItemRepo = new Mock<IItemRepository>();
 			mockUserRepo = new Mock<IUserRepository>();
-			//mockMessageRepo = new Mock<MessageRepository>();
+			mockMessageRepo = new Mock<IMessageRepository>();
 
 			mockUnitOfWork.Setup(x => x.ItemRepository).Returns(mockItemRepo.Object);
 			mockUnitOfWork.Setup(x => x.UserRepository).Returns(mockUserRepo.Object);
-			//mockUnitOfWork.Setup(x => x.MessageRepository).Returns(mockMessageRepo.Object);
+			mockUnitOfWork.Setup(x => x.MessageRepository).Returns(mockMessageRepo.Object);
 
 			itemService = new ItemService(mockUnitOfWork.Object);
 			userService = new UserService(mockUnitOfWork.Object);
-			//messageService = new MessageService(mockUnitOfWork.Object);
+			messageService = new MessageService(mockUnitOfWork.Object);
 
 			GlobalCurrentUser.User = new User() { Id = new Guid() }; // avoid null reference exceptions
 		}
@@ -122,5 +121,48 @@ namespace TownHall.Tests
 		{
 			mockItemRepo.Setup(x => x.GetAll()).Returns(items);
 		}
+
+		protected void MockValidateCredentials(string email, string password, User? returnUser)
+		{
+			mockUserRepo.Setup(repo => repo.ValidateCredentials(email, password))
+				.Returns(returnUser);
+		}
+
+		protected void MockAddUser(User returnUser)
+		{
+			mockUserRepo.Setup(repo => repo.Add(It.IsAny<User>()))
+				.Returns(returnUser);
+		}
+
+		protected void MockGetUsers(List<User> users)
+		{
+			mockUserRepo.Setup(repo => repo.GetUsers())
+				.Returns(users);
+		}
+
+		protected void MockGetUserById(Guid id, User? returnUser)
+		{
+			mockUserRepo.Setup(repo => repo.GetById(id))
+				.Returns(returnUser);
+		}
+
+		protected void MockAddMessage(Message message)
+		{
+			mockMessageRepo.Setup(repo => repo.Add(message))
+				.Verifiable();
+		}
+
+		protected void MockGetMessagesByBuyerAndItem(Guid buyerId, Guid itemId, List<Message> messages)
+		{
+			mockMessageRepo.Setup(repo => repo.GetMessagesByBuyerAndItem(buyerId, itemId))
+				.Returns(messages);
+		}
+
+		protected void MockGetMessagesByUser(Guid userId, List<Message> messages)
+		{
+			mockMessageRepo.Setup(repo => repo.GetMessagesByUser(userId))
+				.Returns(messages.AsQueryable);
+		}
+
 	}
 }
