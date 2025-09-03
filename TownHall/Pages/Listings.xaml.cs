@@ -86,17 +86,18 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 			IsNewItem = false;
 
 			var item = _itemService.GetItemById(itemId);
-			PopulateEntryFields(item);
+			PopulateDisplayFields(item);
 
 			IsEditMode = (item.SellerId == GlobalCurrentUser.User.Id);
 		}
 	}
 
-	private void PopulateEntryFields(Item item)
+	private void PopulateDisplayFields(Item item)
 	{
 		if (item.ImageData != null)
 		{
 			Image.Source = ImageSource.FromStream(() => new MemoryStream(item.ImageData));
+			_imageData = item.ImageData;
 		}
 		PriceEntry.Text = item.Price.ToString();
 		SummaryEntry.Text = item.Summary;
