@@ -18,6 +18,7 @@ namespace TownHall
 			return null;
 		}
 
+		// interface defines so need to implement this method, but we don't actually need to use it
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();

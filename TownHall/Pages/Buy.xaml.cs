@@ -91,15 +91,22 @@ public partial class Buy : PageWithNavBar, INotifyPropertyChanged
 	{
 		base.OnNavigatedTo(args);
 
-		DisplayedItems.Clear();
-		var items = _itemService.SearchForItems(SearchQuery, false);
-		foreach (var item in items)
-		{
-			DisplayedItems.Add(item);
-		}
+		ReloadItems();
+	}
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+
+		ReloadItems();
 	}
 
 	private void OnSearchBarButtonPressed(object sender, EventArgs e)
+	{
+		ReloadItems();
+	}
+
+	private void ReloadItems()
 	{
 		DisplayedItems.Clear();
 		var items = _itemService.SearchForItems(SearchQuery, false);

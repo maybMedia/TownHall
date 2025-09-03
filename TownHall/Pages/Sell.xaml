@@ -10,16 +10,13 @@
 		</ResourceDictionary>
 	</local:PageWithNavBar.Resources>
 
-	<!-- Main layout -->
 	<Grid RowDefinitions="Auto,*,Auto" Padding="10" RowSpacing="10">
-		<!-- Search Bar -->
 		<SearchBar x:Name="Search"
                    Grid.Row="0"
                    Placeholder="Search for a listing"
                    WidthRequest="600"
                    SearchButtonPressed="OnSearchBarButtonPressed" />
 
-		<!-- Listings -->
 		<CollectionView x:Name="ItemCollectionView"
                         Grid.Row="1"
                         Margin="10"
@@ -94,7 +91,6 @@
 			</CollectionView.ItemTemplate>
 		</CollectionView>
 
-		<!-- No listings label -->
 		<Label Grid.Row="1"
                Text="No listings"
                IsVisible="{Binding NoItemsToDisplay}"
@@ -102,7 +98,6 @@
                HorizontalOptions="Center"
                VerticalOptions="Center"/>
 
-		<!-- Fixed bottom button -->
 		<Button Grid.Row="2"
                 Text="Create New Listing"
                 WidthRequest="400"

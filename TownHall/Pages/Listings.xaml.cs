@@ -86,15 +86,19 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 			IsNewItem = false;
 
 			var item = _itemService.GetItemById(itemId);
-			PopulateEntryFields(item);
+			PopulateDisplayFields(item);
 
 			IsEditMode = (item.SellerId == GlobalCurrentUser.User.Id);
 		}
 	}
 
-	private void PopulateEntryFields(Item item)
+	private void PopulateDisplayFields(Item item)
 	{
-		Image.Source = ImageSource.FromStream(() => new MemoryStream(item.ImageData));
+		if (item.ImageData != null)
+		{
+			Image.Source = ImageSource.FromStream(() => new MemoryStream(item.ImageData));
+			_imageData = item.ImageData;
+		}
 		PriceEntry.Text = item.Price.ToString();
 		SummaryEntry.Text = item.Summary;
 		NameEntry.Text = item.Name;
@@ -116,6 +120,8 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 				_itemService.AddItem(item);
 
 				await DisplayAlert("Created Successfully", "Your listing has been created.", "OK");
+
+				Navigation.PopAsync();
 			}
 			else 
 			{
@@ -127,15 +133,16 @@ public partial class Listings : PageWithNavBar, INotifyPropertyChanged
 			if (isValid)
 			{
 				_itemService.UpdateItem(item);
+
 				await DisplayAlert("Saved Successfully", "Your changes have been saved.", "OK");
+
+				Navigation.PopAsync();
 			}
 			else
 			{
 				await DisplayAlert("Error", "There was an error saving your changes. Please try again.", "OK");
 			}
 		}
-
-		Navigation.PopAsync();
 	}
 
 	private bool TryMapInputToItem(out Item item)

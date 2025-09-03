@@ -6,11 +6,8 @@
 
 	<Grid ColumnDefinitions="*,*" Padding="20" ColumnSpacing="20">
 
-		<!-- Left Side -->
 		<VerticalStackLayout Grid.Column="0" Spacing="15">
-			<!-- Big Image -->
 			<Grid HeightRequest="450">
-				<!-- Big Image -->
 				<Frame CornerRadius="20" 
 					   HasShadow="False" 
 					   Padding="0" 
@@ -23,7 +20,6 @@
 							VerticalOptions="Fill" />
 				</Frame>
 
-				<!-- Overlay Button -->
 				<Button Text="Select Image" 
 						Clicked="OnSelectImageClicked"
 						IsVisible="{Binding IsEditMode}"
@@ -33,7 +29,6 @@
 						TextColor="White"/>
 			</Grid>
 
-			<!-- Input Fields -->
 			<VerticalStackLayout Spacing="10">
 				<VerticalStackLayout>
 					<Label Text="Item Name"
@@ -85,7 +80,6 @@
 			</HorizontalStackLayout>
 		</VerticalStackLayout>
 
-		<!-- Right Side -->
 		<Frame Grid.Column="1"
                BorderColor="LightGray"
 			   BackgroundColor="#C7F9CC"
